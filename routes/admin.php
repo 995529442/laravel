@@ -12,7 +12,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function (){
     Route::get('login','LoginController@showLoginForm')->name('admin.loginForm');
     Route::post('login','LoginController@login')->name('admin.login');
     Route::get('logout','LoginController@logout')->name('admin.logout');
-
+    Route::get('captcha', 'LoginController@captcha')->name('admin.captcha'); //验证码
 });
 
 

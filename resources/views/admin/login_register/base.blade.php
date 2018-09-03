@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>登入 - layuiAdmin</title>
+    <title>后台管理系统</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -19,19 +19,19 @@
 
     <div class="layadmin-user-login-main">
         <div class="layadmin-user-login-box layadmin-user-login-header">
-            <h2>layuiAdmin</h2>
-            <p>layui 官方出品的单页面后台管理模板系统</p>
+            <h2>后台管理系统</h2>
+            {{--<p>layui 官方出品的单页面后台管理模板系统</p>--}}
         </div>
         @yield('content')
     </div>
 
     <div class="layui-trans layadmin-user-login-footer">
 
-        <p>© 2018 <a href="http://www.layui.com/" target="_blank">layui.com</a></p>
+        <p>©2018 牛叔叔技术分享 粤ICP备18107654号-1 & 版权所有</p>
         <p>
-            <span><a href="http://www.layui.com/admin/#get" target="_blank">获取授权</a></span>
+{{--            <span><a href="http://www.layui.com/admin/#get" target="_blank">获取授权</a></span>
             <span><a href="http://www.layui.com/admin/pro/" target="_blank">在线演示</a></span>
-            <span><a href="http://www.layui.com/admin/" target="_blank">前往官网</a></span>
+            <span><a href="http://www.layui.com/admin/" target="_blank">前往官网</a></span>--}}
         </p>
     </div>
 </div>
