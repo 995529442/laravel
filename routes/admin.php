@@ -212,3 +212,45 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     });
 
 });
+
+//后台管理
+//微餐饮
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'permission:cater.manage']], function () {
+    //餐厅管理
+    Route::group(['prefix' => 'cater/shop/','middleware' => 'permission:cater.shop'], function () {
+        Route::get('home', 'CaterShopController@index')->name('cater.shop.index');  //餐厅管理
+        Route::post('saveShop', 'CaterShopController@saveShop')->name('cater.shop.saveShop')->middleware('permission:cater.shop.saveShop'); //保存餐厅
+        Route::any('map', 'CaterShopController@map')->name('cater.shop.map')->middleware('permission:cater.shop.map'); //定位地图
+        Route::post('getAddress', 'CaterShopController@getAddress')->name('cater.shop.getAddress'); //获取省市区等信息
+        Route::post('upload', 'CaterShopController@upload')->name('cater.shop.upload'); //上传logo图片
+        Route::post('delFigureImg', 'CaterShopController@delFigureImg')->name('cater.shop.delFigureImg'); //删除logo图片
+    });
+
+    //首页管理
+    Route::group(['prefix' => 'cater/home/','middleware' => 'permission:cater.home'], function () {
+        Route::any('home', 'CaterHomeController@index')->name('cater.home.index'); //首页管理
+        Route::any('save', 'CaterHomeController@save')->name('cater.home.save')->middleware('permission:cater.home.save'); //保存首页管理
+        Route::any('upload', 'CaterHomeController@upload')->name('cater.home.upload'); //上传
+        Route::any('delFigureImg', 'CaterHomeController@delFigureImg')->name('cater.home.delFigureImg'); //删除
+    });
+
+    //模板管理
+    Route::group(['prefix' => 'cater/template/','middleware' => 'permission:cater.template'], function () {
+        Route::get('home', 'CaterTemplateController@index')->name('cater.template.index'); //模板管理
+        Route::get('data', 'CaterTemplateController@data')->name('cater.template.data');
+        Route::get('addTemplate', 'CaterTemplateController@addTemplate')->name('cater.template.addTemplate')->middleware('permission:cater.template.addTemplate'); //新增
+        Route::any('saveTemplate', 'CaterTemplateController@saveTemplate')->name('cater.template.saveTemplate')->middleware('permission:cater.template.addTemplate'); //保存
+        Route::any('delTemplate', 'CaterTemplateController@delTemplate')->name('cater.template.delTemplate')->middleware('permission:cater.template.delTemplate'); //删除
+    });
+
+    //分类管理
+    Route::group(['prefix' => 'cater/category/','middleware' => 'permission:cater.category'], function () {
+        Route::get('home', 'CaterCategoryController@index')->name('cater.category.index'); //分类管理
+        Route::get('data', 'CaterCategoryController@data')->name('cater.category.data');
+        Route::post('operate', 'CaterCategoryController@operate')->name('cater.category.operate')->middleware('permission:cater.category.operate'); //分类操作
+        Route::any('add_cate', 'CaterCategoryController@add_cate')->name('cater.category.add_cate')->middleware('permission:cater.category.add_cate'); //新增分类
+        Route::any('save_cate', 'CaterCategoryController@save_cate')->name('cater.category.save_cate')->middleware('permission:cater.category.add_cate'); //保存分类
+    });
+
+});
+

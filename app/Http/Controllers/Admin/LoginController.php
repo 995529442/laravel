@@ -71,6 +71,5 @@ class LoginController extends Controller
     public function captcha()
     {
         return Captcha::create();
-
     }
 }
