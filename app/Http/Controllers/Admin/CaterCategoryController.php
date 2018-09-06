@@ -93,23 +93,21 @@ class CaterCategoryController extends Controller
     //微餐饮-分类操作
     public function operate(Request $request)
     {
-        $admins = Auth::guard()->user();
-        $admin_id = $admins->id;
-
         $id = (int)$request->input('cate_id', 0);
-
-        $return = array(
-            "errcode" => -1,
-            "errmsg" => "失败"
-        );
-
-        if ($id > 0) {
-            $result = CaterCategory::where(['admin_id' => $admin_id, 'id' => $id])->update(array("isvalid" => false));
-
-            $return['errcode'] = 1;
-            $return['errmsg'] = "删除成功";
+        if (empty($id)){
+            return response()->json(['code'=>1,'msg'=>'请选择删除项']);
+        }
+        $cate = CaterCategory::find($id);
+        if (!$cate){
+            return response()->json(['code'=>1,'msg'=>'数据不存在']);
         }
 
-        return json_encode($return);
+        $result = CaterCategory::whereId($id)->update(array("isvalid" => false));
+
+        if ($result) {
+            return response()->json(['code'=>0,'msg'=>'删除成功']);
+        }
+
+        return response()->json(['code'=>1,'msg'=>'删除失败']);
     }
 }

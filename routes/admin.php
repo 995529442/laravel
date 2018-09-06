@@ -247,10 +247,19 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::group(['prefix' => 'cater/category/','middleware' => 'permission:cater.category'], function () {
         Route::get('home', 'CaterCategoryController@index')->name('cater.category.index'); //分类管理
         Route::get('data', 'CaterCategoryController@data')->name('cater.category.data');
-        Route::post('operate', 'CaterCategoryController@operate')->name('cater.category.operate')->middleware('permission:cater.category.operate'); //分类操作
+        Route::any('operate', 'CaterCategoryController@operate')->name('cater.category.operate')->middleware('permission:cater.category.operate'); //分类操作
         Route::any('add_cate', 'CaterCategoryController@add_cate')->name('cater.category.add_cate')->middleware('permission:cater.category.add_cate'); //新增分类
         Route::any('save_cate', 'CaterCategoryController@save_cate')->name('cater.category.save_cate')->middleware('permission:cater.category.add_cate'); //保存分类
     });
 
+    //菜品管理
+    Route::group(['prefix' => 'cater/goods/','middleware' => 'permission:cater.goods'], function () {
+        Route::get('home', 'CaterGoodsController@index')->name('cater.goods.index'); //菜品管理
+        Route::get('add_goods', 'CaterGoodsController@add_goods')->name('cater.goods.add_goods'); //菜品管理
+        Route::post('upload', 'CaterGoodsController@upload')->name('cater.goods.upload'); //上传logo图片
+        Route::any('save_goods', 'CaterGoodsController@save_goods')->name('cater.goods.save_goods'); //保存商品
+        Route::post('del_goods', 'CaterGoodsController@del_goods')->name('cater.goods.del_goods'); //删除商品
+        Route::any('delFigureImg', 'CaterGoodsController@delFigureImg')->name('cater.goods.delFigureImg'); //删除展示图片
+    });
 });
 

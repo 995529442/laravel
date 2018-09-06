@@ -1,3 +1,5 @@
+{{csrf_field()}}
+<input type="hidden" name="_token" class="tag_token" value="{{ csrf_token() }}">
 <input type="hidden" name="cate_id" id="cate_id" value="{{$cate_info['id']}}">
 <div class="layui-form-item">
     <label class="layui-form-label">分类名称：</label>

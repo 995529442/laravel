@@ -53,7 +53,7 @@
                         ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'del'){
                         layer.confirm('确认删除吗？', function(index){
-                            $.post("{{ route('cater.category.operate') }}",{_method:'delete',temp_id:data.id},function (result) {
+                            $.post("{{ route('cater.category.operate') }}",{_method:'delete',cate_id:data.id},function (result) {
                                 if (result.code==0){
                                     obj.del(); //删除对应行（tr）的DOM结构
                                 }
@@ -62,7 +62,7 @@
                             });
                         });
                     } else if(layEvent === 'edit'){
-                        location.href = '{{ route('cater.template.addTemplate') }}?template_id='+data.id;
+                        location.href = '{{ route('cater.category.add_cate') }}?cate_id='+data.id;
                         // location.href = '/admin/position/'+data.id+'/edit';
                     }
                 });
