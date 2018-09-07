@@ -255,11 +255,30 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     //菜品管理
     Route::group(['prefix' => 'cater/goods/','middleware' => 'permission:cater.goods'], function () {
         Route::get('home', 'CaterGoodsController@index')->name('cater.goods.index'); //菜品管理
-        Route::get('add_goods', 'CaterGoodsController@add_goods')->name('cater.goods.add_goods'); //菜品管理
+        Route::get('data', 'CaterGoodsController@data')->name('cater.goods.data');
+        Route::get('add_goods', 'CaterGoodsController@add_goods')->name('cater.goods.add_goods')->middleware('permission:cater.goods.add_goods'); //菜品添加编辑
         Route::post('upload', 'CaterGoodsController@upload')->name('cater.goods.upload'); //上传logo图片
-        Route::any('save_goods', 'CaterGoodsController@save_goods')->name('cater.goods.save_goods'); //保存商品
-        Route::post('del_goods', 'CaterGoodsController@del_goods')->name('cater.goods.del_goods'); //删除商品
+        Route::any('save_goods', 'CaterGoodsController@save_goods')->name('cater.goods.save_goods')->middleware('permission:cater.goods.add_goods'); //保存商品
+        Route::any('del_goods', 'CaterGoodsController@del_goods')->name('cater.goods.del_goods')->middleware('permission:cater.goods.del_goods'); //删除商品
         Route::any('delFigureImg', 'CaterGoodsController@delFigureImg')->name('cater.goods.delFigureImg'); //删除展示图片
+    });
+
+    //餐桌管理
+    Route::group(['prefix' => 'cater/desk/','middleware' => 'permission:cater.desk'], function () {
+        Route::get('home', 'CaterDeskController@index')->name('cater.desk.index'); //餐桌管理
+        Route::get('data', 'CaterDeskController@data')->name('cater.desk.data');
+        Route::get('addDesk', 'CaterDeskController@addDesk')->name('cater.desk.addDesk')->middleware('permission:cater.desk.addDesk'); //添加餐桌
+        Route::any('saveDesk', 'CaterDeskController@saveDesk')->name('cater.desk.saveDesk')->middleware('permission:cater.desk.addDesk'); //保存餐桌
+        Route::any('operate', 'CaterDeskController@operate')->name('cater.desk.operate')->middleware('permission:cater.desk.operate'); //删除餐桌，生成二维码
+    });
+
+    //订单管理
+    Route::group(['prefix' => 'cater/orders/','middleware' => 'permission:cater.orders'], function () {
+        Route::get('home', 'CaterOrdersController@index')->name('cater.orders.index'); //订单管理
+        Route::get('data', 'CaterOrdersController@data')->name('cater.orders.data');
+        Route::get('orderGoods', 'CaterOrdersController@orderGoods')->name('cater.orders.orderGoods')->middleware('permission:cater.orders.orderGoods'); //订单商品详情
+        Route::any('operate', 'CaterOrdersController@operate')->name('cater.orders.operate')->middleware('permission:cater.orders.operate'); //订单操作
+        Route::get('reject_refund', 'CaterOrdersController@reject_refund')->name('cater.orders.reject_refund')->middleware('permission:cater.orders.operate'); //订单拒绝退款页面
     });
 });
 

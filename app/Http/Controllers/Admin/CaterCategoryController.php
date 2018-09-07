@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\CaterCategory;
+use App\Models\Cater\CaterCategory as CategoryModel;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
@@ -39,7 +39,7 @@ class CaterCategoryController extends Controller
         $admins = Auth::guard()->user();
         $admin_id = $admins->id;
 
-        $res = CaterCategory::where(['admin_id' => $admin_id, 'isvalid' => true])->orderBy('sort','desc')
+        $res = CategoryModel::where(['admin_id' => $admin_id, 'isvalid' => true])->orderBy('sort','desc')
             ->paginate($request->get('limit',30))->toArray();
 
         $data = [
@@ -56,7 +56,7 @@ class CaterCategoryController extends Controller
     {
         $cate_id = (int)$request->input('cate_id', 0);
 
-        $cate_info = CaterCategory::where(['id' => $cate_id, 'isvalid' => true])->first();
+        $cate_info = CategoryModel::where(['id' => $cate_id, 'isvalid' => true])->first();
 
         return view("admin.cater.category.add_cate", ['cate_info' => $cate_info]);
     }
@@ -67,9 +67,9 @@ class CaterCategoryController extends Controller
         $cate_id = (int)$request->input('cate_id', 0);
 
         if ($cate_id > 0) {
-            $cater_cate = CaterCategory::findOrFail($cate_id);
+            $cater_cate = CategoryModel::findOrFail($cate_id);
         } else {
-            $cater_cate = new CaterCategory;
+            $cater_cate = new CategoryModel;
 
             $admins = Auth::guard()->user();
             $admin_id = (int)$admins->id;
@@ -97,12 +97,12 @@ class CaterCategoryController extends Controller
         if (empty($id)){
             return response()->json(['code'=>1,'msg'=>'请选择删除项']);
         }
-        $cate = CaterCategory::find($id);
+        $cate = CategoryModel::find($id);
         if (!$cate){
             return response()->json(['code'=>1,'msg'=>'数据不存在']);
         }
 
-        $result = CaterCategory::whereId($id)->update(array("isvalid" => false));
+        $result = CategoryModel::whereId($id)->update(array("isvalid" => false));
 
         if ($result) {
             return response()->json(['code'=>0,'msg'=>'删除成功']);
