@@ -11,15 +11,21 @@
             </div>
             <div class="layui-form" >
                 <div class="layui-input-inline">
-                    <select name="status" lay-verify="required" id="status">
-                        <option value="0">全部</option>
-                        <option value="1">热卖</option>
-                        <option value="2">新品</option>
-                        <option value="3">推荐</option>
-                    </select>
+                    <label for="" class="layui-form-label">商品名称：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="good_name" id="good_name" placeholder="请输入商品名称" class="layui-input">
+                    </div>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" name="good_name" id="good_name" placeholder="请输入商品名称" class="layui-input">
+                    <label for="" class="layui-form-label">商品状态：</label>
+                    <div class="layui-input-block">
+                        <select name="status" lay-verify="required" id="status">
+                            <option value="0">全部</option>
+                            <option value="1">热卖</option>
+                            <option value="2">新品</option>
+                            <option value="3">推荐</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
