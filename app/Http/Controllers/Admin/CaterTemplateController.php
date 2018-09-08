@@ -27,7 +27,7 @@ class CaterTemplateController extends Controller
         $admin_id = $admins->id;
 
         $res = DB::table("cater_template")->where(['admin_id' => $admin_id, 'isvalid' => true])->orderBy('id','desc')
-            ->paginate($request->get('limit',30))->toArray();
+            ->paginate($request->get('limit',16))->toArray();
 
         $data = [
             'code' => 0,

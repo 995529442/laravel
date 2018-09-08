@@ -4,8 +4,8 @@
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
             <div class="layui-btn-group">
-                @can('cater.template.addTemplate')
-                    <a class="layui-btn layui-btn-sm" href="{{ route('cater.template.addTemplate') }}">添加</a>
+                @can('addSmsTemplate')
+                    <a class="layui-btn layui-btn-sm" href="{{ route('addSmsTemplate') }}">添加</a>
                 @endcan
             </div>
         </div>
@@ -13,11 +13,14 @@
             <table id="dataTable" lay-filter="dataTable"></table>
             <script type="text/html" id="options">
                 <div class="layui-btn-group">
-                    @can('cater.template.addTemplate')
-                        <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
+                    @can('testSms')
+                        <a class="layui-btn layui-btn-sm" lay-event="test">发送测试</a>
                     @endcan
-                    @can('cater.template.delTemplate')
-                        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+                    @can('addSmsTemplate')
+                      <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
+                    @endcan
+                    @can('delSmsTemplate')
+                       <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
                     @endcan
                 </div>
             </script>
@@ -26,7 +29,7 @@
 @endsection
 
 @section('script')
-    @can('cater.template')
+    @can('cater.category')
         <script>
             layui.use(['layer','table','form'],function () {
                 var layer = layui.layer;
@@ -35,38 +38,32 @@
                 //用户表格初始化
                 var dataTable = table.render({
                     elem: '#dataTable'
-                    ,height: 720
-                    ,limit:16
-                    ,url: "{{ route('cater.template.data') }}" //数据接口
+                    ,height: 500
+                    ,url: "{{ route('sms_data') }}" //数据接口
                     ,page: true //开启分页
                     ,cols: [[ //表头
                         {field: 'id', title: '序号', sort: true,width:80, align:'center'}
-                        ,{field: 'template_id', title: '模板id', align:'center'}
+                        ,{field: 'template_id', title: '模板ID', align:'center'}
                         ,{field: 'type', title: '类型', align:'center'}
                         ,{field: 'is_on', title: '是否启用', align:'center'}
                         ,{fixed: 'right', width: 220, align:'center', toolbar: '#options', align:'center'}
                     ]],done:function(res, curr, count){  //res 接口返回的信息
+                        $("[data-field = 'type']").children().each(function(){
+                            if($(this).text() == '1'){
+                                $(this).text("验证通知");
+                            }else if($(this).text() == '2'){
+                                $(this).text("下单通知");
+                            }
+                        })
 
                         $("[data-field = 'is_on']").children().each(function(){
-
-                            if($(this).text() == '1'){
-
-                                $(this).text("启用");
-
-                            }else if($(this).text() == '0'){
-
+                            if($(this).text() == '0'){
                                 $(this).text("关闭");
+                            }else if($(this).text() == '1'){
+                                $(this).text("开启");
                             }
                         })
 
-                        $("[data-field = 'type']").children().each(function(){
-
-                            if($(this).text() == '1'){
-
-                                $(this).text("支付通知");
-
-                            }
-                        })
                     }
                 });
 
@@ -76,7 +73,7 @@
                         ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'del'){
                         layer.confirm('确认删除吗？', function(index){
-                            $.post("{{ route('cater.template.delTemplate') }}",{_method:'delete',temp_id:data.id},function (result) {
+                            $.post("{{ route('delSmsTemplate') }}",{_method:'delete',sms_template_id:data.id},function (result) {
                                 if (result.code==0){
                                     obj.del(); //删除对应行（tr）的DOM结构
                                 }
@@ -85,8 +82,10 @@
                             });
                         });
                     } else if(layEvent === 'edit'){
-                        location.href = '{{ route('cater.template.addTemplate') }}?template_id='+data.id;
-                       // location.href = '/admin/position/'+data.id+'/edit';
+                        location.href = '{{ route('addSmsTemplate') }}?sms_template_id='+data.id;
+                        // location.href = '/admin/position/'+data.id+'/edit';
+                    }else if(layEvent === 'test'){
+                        location.href = '{{ route('testSms') }}?type='+data.type;
                     }
                 });
             });

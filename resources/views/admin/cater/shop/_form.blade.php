@@ -1,13 +1,13 @@
 <input type="hidden" name="_token" class="tag_token" value="{{ csrf_token() }}">
 <input type="hidden" name="shop_id" value="{{$shops_info['id']}}">
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">餐厅名称</label>
+    <label for="" class="layui-form-label">餐厅名称：</label>
     <div class="layui-input-block">
         <input type="text" name="name" id="name" value="{{$shops_info['name']}}" lay-verify="required" placeholder="请输入餐厅名称" class="layui-input" style="width:40%;">
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">堂食</label>
+    <label for="" class="layui-form-label">堂食：</label>
     <div class="layui-input-block">
         <input type="checkbox" name="is_eat_in_box" @if($shops_info['is_eat_in'] == 2) checked
                @endif id="is_eat_in_box" lay-skin="switch" lay-text="ON|OFF" lay-filter="is_eat_in_box">
@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">外卖</label>
+    <label for="" class="layui-form-label">外卖：</label>
     <div class="layui-input-block">
         <input type="checkbox" name="is_take_out_box" @if($shops_info['is_take_out'] == 2) checked
                @endif id="is_take_out_box" lay-skin="switch" lay-text="ON|OFF" lay-filter="is_take_out_box">
@@ -25,7 +25,7 @@
 
 <div id="take_out" @if($shops_info == "" || $shops_info['is_take_out'] == 1)style="display:none;" @endif>
     <div class="layui-form-item">
-        <label for="" class="layui-form-label">起送费</label>
+        <label for="" class="layui-form-label">起送费：</label>
         <div class="layui-input-block">
             <input type="text" name="delivery_fee" id="delivery_fee" autocomplete="off" class="layui-input"
                    value="{{$shops_info['delivery_fee']}}" oninput="clearNoNum(this)"
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label for="" class="layui-form-label">配送费</label>
+        <label for="" class="layui-form-label">配送费：</label>
         <div class="layui-input-block">
             <input type="text" name="shipping_fee" id="shipping_fee" autocomplete="off" class="layui-input"
                    value="{{$shops_info['shipping_fee']}}" oninput="clearNoNum(this)"
@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label for="" class="layui-form-label">包装费</label>
+        <label for="" class="layui-form-label">包装费：</label>
         <div class="layui-input-block">
             <input type="text" name="package_fee" id="package_fee" autocomplete="off" class="layui-input"
                    value="{{$shops_info['package_fee']}}" oninput="clearNoNum(this)"
@@ -50,7 +50,7 @@
     </div>
 </div>
 <div class="layui-form-item" id="take_out_delivery" @if($shops_info == "" || $shops_info['is_take_out'] == 1)style="display:none;" @endif>
-    <label for="" class="layui-form-label">配送范围</label>
+    <label for="" class="layui-form-label">配送范围：</label>
     <div class="layui-input-block">
         <input type="text" name="delivery_km" id="delivery_km" autocomplete="off" class="layui-input"
                value="{{$shops_info['delivery_km']}}" oninput="clearNoNum(this)"
@@ -58,7 +58,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">营业时间</label>
+    <label for="" class="layui-form-label">营业时间：</label>
     <div class="layui-input-block">
         <input type="text" name="begin_time" id="begin_time" value="{{$shops_info['begin_time']}}"
                autocomplete="off" class="layui-input" style="display:inline-block;width:20%;"
@@ -69,7 +69,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">营业状态</label>
+    <label for="" class="layui-form-label">营业状态：</label>
     <div class="layui-input-block">
         <input type="radio" name="status" value="1" title="营业"
                @if($shops_info['id'] > 0) @if($shops_info['status'] == 1) checked="checked"
@@ -79,7 +79,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">联系地址</label>
+    <label for="" class="layui-form-label">联系地址：</label>
     <div class="layui-input-inline">
         <select name="provid" id="provid" lay-filter="provid">
             <option value="">请选择省</option>
@@ -113,7 +113,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">详细地址</label>
+    <label for="" class="layui-form-label">详细地址：</label>
     <div class="layui-input-block">
         <input type="text" name="address" id="address" autocomplete="off" class="layui-input"
                value="{{$shops_info['address']}}" style="display:inline-block;width:40%;">
@@ -123,7 +123,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">经度</label>
+    <label for="" class="layui-form-label">经度：</label>
     <div class="layui-input-block">
         <input type="text" name="longitude" id="longitude" value="{{$shops_info['longitude']}}"
                autocomplete="off" class="layui-input" style="display:inline-block;width:27%;"
@@ -134,7 +134,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">LOGO</label>
+    <label for="" class="layui-form-label">LOGO：</label>
     <div class="layui-input-block">
         <button type="button" class="layui-btn layui-btn-sm" id="preview_logo_id">上传图片</button>
         <input type="hidden" class="layui-btn" name="logo" id="logo" value="{{$shops_info['logo']}}">
@@ -147,7 +147,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label class="layui-form-label">商家展示图：</label>
+    <label class="layui-form-label">展示图：</label>
     <div class="layui-upload">
         <button type="button" class="layui-btn layui-btn-sm" id="figure_img">多图片上传</button>
         <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;margin-left: 120px;">

@@ -4,7 +4,8 @@
 <div class="layui-form-item">
     <label for="" class="layui-form-label">模板ID</label>
     <div class="layui-input-inline">
-        <input type="text" name="template_id" id="template_id" value="@if($temp_info){{$temp_info->template_id}}@endif" lay-verify="required" placeholder="请输入模板ID" class="layui-input" >
+        <input type="text" name="template_id" id="template_id" value="@if($temp_info){{$temp_info->template_id}}@endif"
+               lay-verify="required" placeholder="请输入模板ID" class="layui-input" >
     </div>
 </div>
 

@@ -13,23 +13,6 @@ class CaterCategoryController extends Controller
     //微餐饮-分类首页
     public function index(Request $request)
     {
-/*        $admins = Auth::guard()->user();
-        $admin_id = $admins->id;
-
-        $cate_name = $request->input("cate_name", "");
-
-        $category = CaterCategory::where(['admin_id' => $admin_id, 'isvalid' => true]);
-
-        if ($cate_name) {
-            $category->where("cate_name", "like", "%$cate_name%");
-        }
-
-        $category_info = $category->orderBy('sort', 'desc')->paginate(12);
-
-        return view("admin.cater.category.index", [
-            'category_info' => $category_info,
-            'cate_name' => $cate_name
-        ]);*/
         return view("admin.cater.category.index");
     }
 
@@ -40,7 +23,7 @@ class CaterCategoryController extends Controller
         $admin_id = $admins->id;
 
         $res = CategoryModel::where(['admin_id' => $admin_id, 'isvalid' => true])->orderBy('sort','desc')
-            ->paginate($request->get('limit',30))->toArray();
+            ->paginate($request->get('limit',16))->toArray();
 
         $data = [
             'code' => 0,

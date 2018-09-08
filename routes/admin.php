@@ -212,7 +212,29 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     });
 
 });
+//基础管理
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'permission:base.manage']], function () {
+    //基础管理
+    Route::any('Index/mail', 'IndexController@mail')->name('mail')->middleware('permission:mail'); //邮件设置
+    Route::any('Index/saveMail', 'IndexController@saveMail')->name('saveMail')->middleware('permission:mail'); //保存邮件设置
 
+    Route::any('Index/sms', 'IndexController@sms')->name('sms')->middleware('permission:sms'); //短信设置
+    Route::any('Index/saveSms', 'IndexController@saveSms')->name('saveSms')->middleware('permission:sms'); //保存短信设置
+
+    Route::any('Index/sms_template', 'IndexController@smsTemplate')->name('smsTemplate')->middleware('permission:smsTemplate'); //短信模板页面
+    Route::any('Index/sms_data', 'IndexController@sms_data')->name('sms_data')->middleware('permission:smsTemplate'); //短信模板页面
+    Route::any('Index/add_sms_template', 'IndexController@addSmsTemplate')->name('addSmsTemplate')->middleware('permission:addSmsTemplate'); //新增短信模板页面
+    Route::any('Index/save_sms_template', 'IndexController@saveSmsTemplate')->name('saveSmsTemplate')->middleware('permission:addSmsTemplate'); //保存短信模板页面
+    Route::any('Index/del_sms_template', 'IndexController@delSmsTemplate')->name('delSmsTemplate')->middleware('permission:delSmsTemplate'); //删除短信模板页面
+
+    Route::any('Index/send_log_data', 'IndexController@send_log_data')->name('send_log_data')->middleware('permission:sendLog'); //发送记录
+    Route::any('Index/send_log', 'IndexController@sendLog')->name('sendLog')->middleware('permission:sendLog'); //发送记录
+
+    //测试短信、邮件
+    Route::any('Index/test_sms', 'IndexController@testSms')->name('testSms')->middleware('permission:testSms'); //测试短信
+
+    Route::any('Index/get_orders', 'IndexController@getOrders')->name('getOrders'); //首页获取订单
+});
 //后台管理
 //微餐饮
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'permission:cater.manage']], function () {
@@ -279,6 +301,28 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('orderGoods', 'CaterOrdersController@orderGoods')->name('cater.orders.orderGoods')->middleware('permission:cater.orders.orderGoods'); //订单商品详情
         Route::any('operate', 'CaterOrdersController@operate')->name('cater.orders.operate')->middleware('permission:cater.orders.operate'); //订单操作
         Route::get('reject_refund', 'CaterOrdersController@reject_refund')->name('cater.orders.reject_refund')->middleware('permission:cater.orders.operate'); //订单拒绝退款页面
+    });
+
+    //用户管理
+    Route::group(['prefix' => 'cater/users/','middleware' => 'permission:cater.users'], function () {
+        Route::get('home', 'CaterUsersController@index')->name('cater.users.index'); //用户管理
+        Route::get('data', 'CaterUsersController@data')->name('cater.users.data');
+        Route::any('data_log', 'CaterUsersController@data_log')->name('cater.users.data_log');
+        Route::any('add_currency', 'CaterUsersController@add_currency')->name('cater.users.add_currency')->middleware('permission:cater.users.add_currency'); //购物币充值
+        Route::any('save_currency', 'CaterUsersController@save_currency')->name('cater.users.save_currency')->middleware('permission:cater.users.add_currency'); //购物币保存
+        Route::get('currency_log', 'CaterUsersController@currency_log')->name('cater.users.currency_log')->middleware('permission:cater.users.add_currency'); //购物币日志
+    });
+
+    //小程序管理
+    Route::group(['prefix' => 'cater/system/','middleware' => 'permission:cater.system'], function () {
+        Route::get('home', 'CaterSystemController@index')->name('cater.system.index'); //小程序管理
+        Route::any('upload', 'CaterSystemController@upload')->name('cater.system.upload'); //上传证书
+        Route::any('saveSystem', 'CaterSystemController@saveSystem')->name('cater.system.saveSystem'); //保存信息
+    });
+
+    //统计管理
+    Route::group(['prefix' => 'cater/statistics/','middleware' => 'permission:cater.statistics'], function () {
+        Route::get('home', 'CaterStatisticsController@index')->name('cater.statistics.index'); //统计管理
     });
 });
 

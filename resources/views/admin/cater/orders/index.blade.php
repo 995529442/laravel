@@ -71,12 +71,41 @@
         </div>
         <div class="layui-card-body">
             <table id="dataTable" lay-filter="dataTable"></table>
-            <script type="text/html" id="options">
-                <div class="layui-btn-group">
-                    @can('cater.orders.operate')
-                        <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
-                    @endcan
-                </div>
+            <script type="text/html" id="operate">
+                @can('cater.orders.operate')
+                    @{{#  if(d.status == 0 && d.pay_type == 0){ }}
+                    <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="operate( @{{d.id}},'cancel')">取消订单
+                    </button>
+                    @{{#  } else if(d.status == 1 && d.pay_type == 1) { }}
+                    <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="operate(@{{d.id}},'accept')">接单
+                    </button>
+                    <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="operate(@{{d.id}},'reject')">拒单
+                    </button>
+                    @{{#  } else if(d.status == 2 && d.pay_type == 1) { }}
+                    <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="operate(@{{d.id}},'send')">配送
+                    </button>
+                    @{{#  } else if(d.status == 3 && d.pay_type == 1) { }}
+                    <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="operate(@{{d.id}},'confirm_send')">配送完成
+                    </button>
+                    @{{#  } else if(d.status == 4 && d.pay_type == 1) { }}
+                    <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="operate(@{{d.id}},'confirm')">完成
+                    </button>
+                    @{{#  } else if(d.status == 6 && d.pay_type == 1) { }}
+                    <button class="layui-btn layui-btn-normal layui-btn-sm"
+                            onclick="operate(@{{d.id}},'confirm_refund')">确认退款
+                    </button>
+                    <button class="layui-btn layui-btn-normal layui-btn-sm"
+                            onclick="operate(@{{d.id}},'reject_refund')">拒绝退款
+                    </button>
+                    @{{#  } }}
+                @endcan
+            </script>
+            <script type="text/html" id="operate1">
+                @can('cater.orders.orderGoods')
+                  <a href="orderGoods?order_id=@{{d.id}}" style="color:#1E9FFF;">@{{d.batchcode}}</a>
+                @else
+                  @{{d.batchcode}}
+                @endcan
             </script>
         </div>
     </div>
@@ -97,17 +126,17 @@
                     ,page: true //开启分页
                     ,cols: [[ //表头
                         {field: 'id', title: 'ID', sort: true,width:50, align:'center'}
-                        ,{field: 'batchcode', title: '订单号',width:180, align:'center'}
-                        ,{field: 'weixin_name', title: '用户',width:180, align:'center'}
-                        ,{field: 'phone', title: '联系方式',width:180, align:'center'}
+                        ,{field: 'batchcode', title: '订单号',width:180, align:'center',templet: '#operate1'}
+                        ,{field: 'weixin_name', title: '用户',width:160, align:'center'}
+                        ,{field: 'phone', title: '联系方式',width:160, align:'center'}
                         ,{field: 'type', title: '订单类型',width:100, align:'center'}
                         ,{field: 'pay_type', title: '支付状态',width:100, align:'center'}
                         ,{field: 'status', title: '订单状态',width:100, align:'center'}
                         ,{field: 'real_pay', title: '支付金额',width:100, align:'center'}
-                        ,{field: 'total_num', title: '数量',width:100, align:'center'}
+                        ,{field: 'total_num', title: '数量',width:78, align:'center'}
                         ,{field: 'create_time', title: '下单时间',width:150,align:'center'}
-                        ,{field: 'remark', title: '留言', align:'center'}
-                        ,{fixed: 'right', width: 220, align:'center', toolbar: '#options'}
+                        ,{field: 'remark', title: '留言',width:200, align:'center'}
+                        ,{field: '', title: '操作', align:'center',width:250,templet: '#operate'}
                     ]],done:function(res, curr, count){  //res 接口返回的信息
                         $("[data-field = 'type']").children().each(function(){
                             if($(this).text() == '1'){
@@ -160,13 +189,13 @@
                 });
 
                 //监听工具条
-                table.on('tool(dataTable)', function(obj){ //注：tool是工具条事件名，dataTable是table原始容器的属性 lay-filter="对应的值"
+/*                table.on('tool(dataTable)', function(obj){ //注：tool是工具条事件名，dataTable是table原始容器的属性 lay-filter="对应的值"
                     var data = obj.data //获得当前行数据
                         ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'edit'){
                         location.href = '{{ route('cater.goods.add_goods') }}?goods_id='+data.id;
                     }
-                });
+                });*/
 
                 //搜索
                 $("#searchBtn").click(function () {
@@ -185,6 +214,63 @@
                 })
             })
 
+            //订单操作
+            function operate(order_id, type) {
+                var msg = "";
+
+                if (type == "accept") {
+                    msg = "确定要接单？";
+                } else if (type == "reject") {
+                    msg = "确定要拒单，并返还金额给用户？";
+                } else if (type == "send") {
+                    msg = "确定要配送？";
+                } else if (type == "confirm_send") {
+                    msg = "确定要配送完成？";
+                } else if (type == "confirm") {
+                    msg = "确定要完成？";
+                } else if (type == "confirm_refund") {
+                    msg = "确定要退款？";
+                } else if (type == "reject_refund") {
+                    layer.open({
+                        type: 2,
+                        title: false,
+                        shadeClose: false,
+                        shade: 0.1,
+                        area: ['500px', '265px'],
+                        content: 'reject_refund?order_id=' + order_id,
+                        end: function () {
+
+                        }
+                    });
+                    return;
+                } else if (type == "cancel") {
+                    msg = "确定要取消该订单？";
+                }
+                if (order_id > 0) {
+                    layer.confirm(msg, {
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+                        $.ajax({
+                            type: "POST",
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            url: "{{ route('cater.orders.operate') }}",
+                            data: {order_id: order_id, type: type},
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.errcode == 1) {
+                                    layer.msg(data.errmsg, {icon: 1}, function () {
+                                        location.reload();
+                                    });
+                                } else {
+                                    layer.msg(data.errmsg, {icon: 2}, 1500);
+                                }
+                            }
+                        });
+                    }, function () {
+
+                    });
+                }
+            }
             function formatDate(time){
                 console.log(typeof time);
                 console.log(time);

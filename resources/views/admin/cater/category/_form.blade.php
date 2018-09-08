@@ -5,14 +5,14 @@
     <label class="layui-form-label">分类名称：</label>
     <div class="layui-input-block">
         <input type="text" name="cate_name" id="cate_name" value="{{$cate_info['cate_name']}}"
-               autocomplete="off" class="layui-input" style="width:60%">
+               autocomplete="off" class="layui-input" style="width:20%">
     </div>
 </div>
 <div class="layui-form-item">
     <label class="layui-form-label">排序：</label>
     <div class="layui-input-block">
         <input type="number" name="sort" id="sort" value="{{$cate_info['sort']}}" autocomplete="off"
-               class="layui-input" style="width:60%">
+               class="layui-input" style="width:20%">
     </div>
 </div>
 <div class="layui-form-item">

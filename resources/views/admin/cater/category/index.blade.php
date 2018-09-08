@@ -35,15 +35,15 @@
                 //用户表格初始化
                 var dataTable = table.render({
                     elem: '#dataTable'
-                    ,height: 500
+                    ,height: 720
+                    ,limit:16
                     ,url: "{{ route('cater.category.data') }}" //数据接口
                     ,page: true //开启分页
                     ,cols: [[ //表头
-                        {checkbox: true,fixed: true}
-                        ,{field: 'id', title: '序号', sort: true,width:80}
-                        ,{field: 'cate_name', title: '分类名称'}
-                        ,{field: 'sort', title: '排序'}
-                        ,{fixed: 'right', width: 220, align:'center', toolbar: '#options'}
+                         {field: 'id', title: '序号', sort: true,width:80, align:'center'}
+                        ,{field: 'cate_name', title: '分类名称', align:'center'}
+                        ,{field: 'sort', title: '排序', align:'center'}
+                        ,{fixed: 'right', width: 220, align:'center', toolbar: '#options', align:'center'}
                     ]]
                 });
 
