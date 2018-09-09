@@ -138,8 +138,8 @@
                         ,{field: 'status', title: '订单状态',width:100, align:'center'}
                         ,{field: 'real_pay', title: '支付金额',width:100, align:'center'}
                         ,{field: 'total_num', title: '数量',width:78, align:'center'}
-                        ,{field: 'create_time', title: '下单时间',width:150,align:'center'}
-                        ,{field: 'remark', title: '留言',width:200, align:'center'}
+                        ,{field: 'create_time', title: '下单时间',width:180,align:'center'}
+                        ,{field: 'remark', title: '留言',width:220, align:'center'}
                         ,{field: '', title: '操作', align:'center',width:250,templet: '#operate'}
                     ]],done:function(res, curr, count){  //res 接口返回的信息
                         $("[data-field = 'type']").children().each(function(){
