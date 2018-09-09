@@ -59,12 +59,13 @@
                     hour = date.getHours(),
                     min = date.getMinutes(),
                     sec = date.getSeconds();
-                if(month < 10){
-                    month = "0" + month;
-                }
-                if(day < 10){
-                    day = "0" + day;
-                }
+
+                month = formatTime(month);
+                day = formatTime(day);
+                hour = formatTime(hour);
+                min = formatTime(min);
+                sec = formatTime(sec);
+
                 var newTime = year + '-' +
                     month + '-' +
                     day + ' ' +
@@ -73,7 +74,12 @@
                     sec;
                 return newTime;
             }
-
+            function formatTime(time){
+                if(time < 10){
+                    time = "0" + time;
+                }
+                return time;
+            }
         </script>
     @endcan
 @endsection
