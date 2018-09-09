@@ -290,14 +290,9 @@
 
         layer.open({
             type: 2,
-            title: false,
-            shadeClose: false,
-            shade: 0.1,
+            title: '选择地址',
             area: ['700px', '68%'],
-            content: 'map?province=' + province.text() + "&city=" + city.text() + "&area=" + area.text() + "&address=" + address,
-            end: function () {
-
-            }
+            content: 'map?province=' + province.text() + "&city=" + city.text() + "&area=" + area.text() + "&address=" + address
         });
     }
 

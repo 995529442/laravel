@@ -50,7 +50,7 @@ class CaterGoodsController extends Controller
         } elseif ($status == 3) {
             $CaterGoods->where("good.is_recommend", 1);
         }
-        $res = $CaterGoods->orderBy('good.id', 'desc')->paginate($request->get('limit',30))->toArray();
+        $res = $CaterGoods->orderBy('good.id', 'desc')->paginate(16)->toArray();
 
         $data = [
             'code' => 0,

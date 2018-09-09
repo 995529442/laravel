@@ -1,13 +1,13 @@
 <input type="hidden" name="_token" class="tag_token" value="{{ csrf_token() }}">
 <input type="hidden" name="goods_id" value="{{$goods_info['id']}}">
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">商品名称</label>
+    <label for="" class="layui-form-label">商品名称：</label>
     <div class="layui-input-block">
         <input type="text" name="good_name" id="good_name" value="{{$goods_info['good_name']}}" lay-verify="required" placeholder="请输入商品名称" class="layui-input" style="width:20%;">
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">所属分类</label>
+    <label for="" class="layui-form-label">所属分类：</label>
     <div class="layui-input-inline">
         <select name="cate_id" id="cate_id" lay-filter="cate_id" >
             <option value="">请选择分类</option>
@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">是否热卖</label>
+    <label for="" class="layui-form-label">是否热卖：</label>
     <div class="layui-input-block">
         <input type="checkbox" name="is_hot_box" @if($goods_info['is_hot'] == 1) checked @endif id="is_hot_box"
                lay-skin="switch" lay-text="ON|OFF" lay-filter="is_hot_box">
@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">是否新品</label>
+    <label for="" class="layui-form-label">是否新品：</label>
     <div class="layui-input-block">
         <input type="checkbox" name="is_new_box" @if($goods_info['is_new'] == 1) checked @endif id="is_new_box"
                lay-skin="switch" lay-text="ON|OFF" lay-filter="is_new_box">
@@ -36,7 +36,7 @@
 </div>
 
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">是否推荐</label>
+    <label for="" class="layui-form-label">是否推荐：</label>
     <div class="layui-input-block">
         <input type="checkbox" name="is_recommend_box" @if($goods_info['is_recommend'] == 1) checked
                @endif id="is_recommend_box" lay-skin="switch" lay-text="ON|OFF" lay-filter="is_recommend_box">
@@ -45,7 +45,7 @@
 </div>
 
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">缩略图</label>
+    <label for="" class="layui-form-label">缩略图：</label>
     <div class="layui-input-block">
         <button type="button" class="layui-btn layui-btn-sm" id="preview_thumb_id"
                 style="display:inline-block;">上传图片
@@ -89,7 +89,7 @@
 </div>
 
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">是否上架</label>
+    <label for="" class="layui-form-label">是否上架：</label>
     <div class="layui-input-block">
         <input type="checkbox" name="isout_box" @if($goods_info['isout'] == 2) checked @endif id="isout_box"
                lay-skin="switch" lay-text="ON|OFF" lay-filter="isout_box">
@@ -98,7 +98,7 @@
 </div>
 
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">原价</label>
+    <label for="" class="layui-form-label">原价：</label>
     <div class="layui-input-block">
         <input type="text" oninput="clearNoNum(this)" name="original_price" id="original_price"
                autocomplete="off" class="layui-input" value="{{$goods_info['original_price']}}"
@@ -106,21 +106,21 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">现价</label>
+    <label for="" class="layui-form-label">现价：</label>
     <div class="layui-input-block">
         <input type="text" oninput="clearNoNum(this)" name="now_price" id="now_price" autocomplete="off"
                class="layui-input" value="{{$goods_info['now_price']}}" style="width:20%;">
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">库存</label>
+    <label for="" class="layui-form-label">库存：</label>
     <div class="layui-input-block">
         <input type="number" oninput="clearNum(this)" name="storenum" id="storenum" autocomplete="off"
                class="layui-input" value="{{$goods_info['storenum']}}" style="width:20%;">
     </div>
 </div>
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">虚拟销量</label>
+    <label for="" class="layui-form-label">虚拟销量：</label>
     <div class="layui-input-block">
         <input type="number" oninput="clearNum(this)" name="virtual_sell_count" id="virtual_sell_count"
                autocomplete="off" class="layui-input" value="{{$goods_info['virtual_sell_count']}}"
@@ -128,7 +128,7 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label class="layui-form-label">商品介绍</label>
+    <label class="layui-form-label">商品介绍：</label>
     <div class="layui-input-block">
       <textarea placeholder="请输入内容" name="introduce"
                           class="layui-textarea">{{$goods_info['introduce']}}</textarea>

@@ -30,7 +30,7 @@
         <button type="button" class="layui-btn layui-btn-sm" id="preview_cert_id">上传</button>
         <input type="hidden" class="layui-btn" name="apiclient_cert" id="apiclient_cert"
                value="{{$system['apiclient_cert']}}">
-        <div class="layui-upload-list">
+        <div class="layui-upload-list" style="display:inline-block;">
             <p id="apiclient_cert_p">{{$system['apiclient_cert']}}</p>
         </div>
     </div>
@@ -42,7 +42,7 @@
         <button type="button" class="layui-btn layui-btn-sm" id="preview_key_id">上传</button>
         <input type="hidden" class="layui-btn" name="apiclient_key" id="apiclient_key"
                value="{{$system['apiclient_key']}}">
-        <div class="layui-upload-list">
+        <div class="layui-upload-list" style="display:inline-block;">
             <p id="apiclient_key_p">{{$system['apiclient_key']}}</p>
         </div>
     </div>

@@ -23,17 +23,17 @@ class UserTableSeeder extends Seeder
 
         //用户
         $user = \App\Models\User::create([
-            'username' => 'root',
-            'phone' => '18908221080',
+            'username' => 'admin',
+            'phone' => '13580730392',
             'name' => '超级管理员',
-            'email' => 'root@dgg.net',
+            'email' => '995529442@qq.com',
             'password' => bcrypt('123456'),
             'uuid' => \Faker\Provider\Uuid::uuid()
         ]);
 
         //角色
         $role = \App\Models\Role::create([
-            'name' => 'root',
+            'name' => 'admin',
             'display_name' => '超级管理员'
         ]);
 
@@ -84,6 +84,165 @@ class UserTableSeeder extends Seeder
                 ]
             ],
             [
+                'name' => 'base.manage',
+                'display_name' => '基础管理',
+                'route' => '',
+                'icon_id' => '28',
+                'child' => [
+                    [
+                        'name' => 'mail',
+                        'display_name' => '邮件管理',
+                        'route' => 'mail',
+                        'icon_id' => '28'
+                    ],
+                    [
+                        'name' => 'sms',
+                        'display_name' => '短信管理',
+                        'route' => 'sms',
+                        'icon_id' => '28'
+                    ],
+                    [
+                        'name' => 'smsTemplate',
+                        'display_name' => '短信模板',
+                        'route' => 'smsTemplate',
+                        'icon_id' => '28',
+                        'child' => [
+                            ['name' => 'addSmsTemplate', 'display_name' => '新增/修改','route'=>'addSmsTemplate'],
+                            ['name' => 'delSmsTemplate', 'display_name' => '删除','route'=>'delSmsTemplate'],
+                            ['name' => 'testSms', 'display_name' => '测试短信','route'=>'testSms'],
+                        ]
+                    ],
+                    [
+                        'name' => 'sendLog',
+                        'display_name' => '发送记录',
+                        'route' => 'sendLog',
+                        'icon_id' => '28'
+                    ],
+                ]
+            ],
+            [
+                'name' => 'message.manage',
+                'display_name' => '消息管理',
+                'route' => '',
+                'icon_id' => '24',
+                'child' => [
+                    [
+                        'name' => 'message.message.mine',
+                        'display_name' => '我的消息',
+                        'route' => 'admin.message.mine',
+                        'icon_id' => '124',
+                    ],
+                    [
+                        'name' => 'message.message',
+                        'display_name' => '消息管理',
+                        'route' => 'admin.message',
+                        'icon_id' => '24',
+                        'child' => [
+                            ['name' => 'message.message.create', 'display_name' => '推送消息','route'=>'admin.message.create'],
+                            ['name' => 'message.message.destroy', 'display_name' => '删除消息','route'=>'admin.message.destroy'],
+                        ]
+                    ],
+                ]
+            ],
+            [
+                'name' => 'cater.manage',
+                'display_name' => '微餐饮',
+                'route' => '',
+                'icon_id' => '28',
+                'child' => [
+                    [
+                        'name' => 'cater.shop',
+                        'display_name' => '餐厅管理',
+                        'route' => 'cater.shop.index',
+                        'icon_id' => '28',
+                        'child' => [
+                            ['name' => 'cater.shop.saveShop', 'display_name' => '新增/修改','route'=>'cater.shop.saveShop'],
+                            ['name' => 'cater.shop.map', 'display_name' => '商家地图管理','route'=>'cater.shop.map'],
+                        ]
+                    ],
+                    [
+                        'name' => 'cater.home',
+                        'display_name' => '首页管理',
+                        'route' => 'cater.home.index',
+                        'icon_id' => '28',
+                        'child' => [
+                            ['name' => 'cater.home.save', 'display_name' => '首页编辑','route'=>'cater.home.save'],
+                        ]
+                    ],
+                    [
+                        'name' => 'cater.template',
+                        'display_name' => '消息模板',
+                        'route' => 'cater.template.index',
+                        'icon_id' => '28',
+                        'child' => [
+                            ['name' => 'cater.template.addTemplate', 'display_name' => '新增/修改','route'=>'cater.template.addTemplate'],
+                            ['name' => 'cater.template.delTemplate', 'display_name' => '删除','route'=>'cater.template.delTemplate'],
+                        ]
+                    ],
+                    [
+                        'name' => 'cater.category',
+                        'display_name' => '分类管理',
+                        'route' => 'cater.category.index',
+                        'icon_id' => '28',
+                        'child' => [
+                            ['name' => 'cater.category.add_cate', 'display_name' => '新增/修改','route'=>'cater.category.add_cate'],
+                            ['name' => 'cater.category.operate', 'display_name' => '删除','route'=>'cater.category.operate'],
+                        ]
+                    ],
+                    [
+                        'name' => 'cater.goods',
+                        'display_name' => '菜品管理',
+                        'route' => 'cater.goods.index',
+                        'icon_id' => '28',
+                        'child' => [
+                            ['name' => 'cater.goods.add_goods', 'display_name' => '新增/修改','route'=>'cater.goods.add_goods'],
+                            ['name' => 'cater.goods.del_goods', 'display_name' => '删除','route'=>'cater.goods.del_goods'],
+                        ]
+                    ],
+                    [
+                        'name' => 'cater.desk',
+                        'display_name' => '餐桌管理',
+                        'route' => 'cater.desk.index',
+                        'icon_id' => '28',
+                        'child' => [
+                            ['name' => 'cater.desk.addDesk', 'display_name' => '新增/修改','route'=>'cater.desk.addDesk'],
+                            ['name' => 'cater.desk.operate', 'display_name' => '删除/生成二维码','route'=>'cater.desk.operate'],
+                        ]
+                    ],
+                    [
+                        'name' => 'cater.orders',
+                        'display_name' => '订单管理',
+                        'route' => 'cater.orders.index',
+                        'icon_id' => '28',
+                        'child' => [
+                            ['name' => 'cater.orders.orderGoods', 'display_name' => '订单商品详情','route'=>'cater.orders.orderGoods'],
+                            ['name' => 'cater.orders.operate', 'display_name' => '订单操作','route'=>'cater.orders.operate'],
+                        ]
+                    ],
+                    [
+                        'name' => 'cater.users',
+                        'display_name' => '用户管理',
+                        'route' => 'cater.users.index',
+                        'icon_id' => '28',
+                        'child' => [
+                            ['name' => 'cater.users.add_currency', 'display_name' => '购物币充值','route'=>'cater.users.add_currency'],
+                        ]
+                    ],
+                    [
+                        'name' => 'cater.system',
+                        'display_name' => '小程序管理',
+                        'route' => 'cater.system.index',
+                        'icon_id' => '28'
+                    ],
+                    [
+                        'name' => 'cater.statistics',
+                        'display_name' => '统计管理',
+                        'route' => 'cater.statistics.index',
+                        'icon_id' => '28'
+                    ],
+                ]
+            ]
+/*            [
                 'name' => 'zixun.manage',
                 'display_name' => '资讯管理',
                 'route' => '',
@@ -181,31 +340,7 @@ class UserTableSeeder extends Seeder
                         ]
                     ],
                 ]
-            ],
-            [
-                'name' => 'message.manage',
-                'display_name' => '消息管理',
-                'route' => '',
-                'icon_id' => '24',
-                'child' => [
-                    [
-                        'name' => 'message.message.mine',
-                        'display_name' => '我的消息',
-                        'route' => 'admin.message.mine',
-                        'icon_id' => '124',
-                    ],
-                    [
-                        'name' => 'message.message',
-                        'display_name' => '消息管理',
-                        'route' => 'admin.message',
-                        'icon_id' => '24',
-                        'child' => [
-                            ['name' => 'message.message.create', 'display_name' => '推送消息','route'=>'admin.message.create'],
-                            ['name' => 'message.message.destroy', 'display_name' => '删除消息','route'=>'admin.message.destroy'],
-                        ]
-                    ],
-                ]
-            ]
+            ],*/
         ];
 
         foreach ($permissions as $pem1) {
@@ -258,7 +393,7 @@ class UserTableSeeder extends Seeder
         //为用户添加角色
         $user->assignRole($role);
 
-        //初始化的角色
+/*        //初始化的角色
         $roles = [
             ['name' => 'business', 'display_name' => '商务'],
             ['name' => 'assessor', 'display_name' => '审核员'],
@@ -268,6 +403,6 @@ class UserTableSeeder extends Seeder
         ];
         foreach ($roles as $role) {
             \App\Models\Role::create($role);
-        }
+        }*/
     }
 }

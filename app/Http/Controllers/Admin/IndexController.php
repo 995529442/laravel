@@ -220,7 +220,7 @@ class IndexController extends Controller
     public function sms_data(Request $request)
     {
         $res = DB::table('sms_template')->where(['admin_id' => Auth::guard()->user()->id, 'isvalid' => true])
-            ->orderBy('id', 'desc')->paginate($request->get('limit',30))->toArray();
+            ->orderBy('id', 'desc')->paginate(16)->toArray();
 
         $data = [
             'code' => 0,

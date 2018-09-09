@@ -3,12 +3,6 @@
 @section('content')
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
-            <div class="layui-btn-group ">
-                @can('cater.goods.add_goods')
-                    <a class="layui-btn layui-btn-sm" href="{{ route('cater.goods.add_goods') }}">添 加</a>
-                @endcan
-                <button class="layui-btn layui-btn-sm" id="searchBtn">搜 索</button>
-            </div>
             <div class="layui-form" >
                 <div class="layui-input-inline">
                     <label for="" class="layui-form-label">商品名称：</label>
@@ -26,6 +20,12 @@
                             <option value="3">推荐</option>
                         </select>
                     </div>
+                </div>
+                <div class="layui-input-inline">
+                    <button class="layui-btn layui-btn-sm" id="searchBtn">搜 索</button>
+                    @can('cater.goods.add_goods')
+                        <a class="layui-btn layui-btn-sm" href="{{ route('cater.goods.add_goods') }}">添 加</a>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -77,7 +77,8 @@
                 //用户表格初始化
                 var dataTable = table.render({
                     elem: '#dataTable'
-                    ,height: 600
+                    ,height: 720
+                    ,limit:16
                     ,url: "{{ route('cater.goods.data') }}" //数据接口
                     ,page: true //开启分页
                     ,cols: [[ //表头
@@ -110,7 +111,7 @@
                         ,layEvent = obj.event; //获得 lay-event 对应的值
                     if(layEvent === 'del'){
                         layer.confirm('确认删除吗？', function(index){
-                            $.post("{{ route('cater.goods.del_goods') }}",{_method:'delete',goods_id:[data.id]},function (result) {
+                            $.post("{{ route('cater.goods.del_goods') }}",{_method:'delete',goods_id:data.id},function (result) {
                                 if (result.code==0){
                                     obj.del(); //删除对应行（tr）的DOM结构
                                 }

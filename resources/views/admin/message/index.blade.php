@@ -3,15 +3,6 @@
 @section('content')
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
-            <div class="layui-btn-group ">
-                @can('message.message.destroy')
-                    <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删除</button>
-                @endcan
-                @can('message.message.create')
-                    <a class="layui-btn layui-btn-sm" href="{{ route('admin.message.create') }}">添加</a>
-                @endcan
-                <button type="button" class="layui-btn layui-btn-sm" id="searchBtn">搜索</button>
-            </div>
             <div class="layui-form" >
                 <div class="layui-input-inline">
                     <input type="text" class="layui-input" placeholder="开始时间" name="start_time" id="start_time">
@@ -22,6 +13,15 @@
                 </div>
                 <div class="layui-input-inline">
                     <input type="text" name="title" id="title" placeholder="请输入消息标题" class="layui-input" >
+                </div>
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn layui-btn-sm" id="searchBtn">搜索</button>
+                    @can('message.message.create')
+                        <a class="layui-btn layui-btn-sm" href="{{ route('admin.message.create') }}">添加</a>
+                    @endcan
+                    @can('message.message.destroy')
+                        <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删除</button>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -51,7 +51,8 @@
                 //用户表格初始化
                 var dataTable = table.render({
                     elem: '#dataTable'
-                    ,height: 500
+                    ,height: 720
+                    ,limit:16
                     ,url: "{{ route('admin.message.data') }}" //数据接口
                     ,page: true //开启分页
                     ,cols: [[ //表头

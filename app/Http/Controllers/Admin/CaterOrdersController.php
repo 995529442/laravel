@@ -61,7 +61,7 @@ class CaterOrdersController extends Controller
             $order->where("or.status", "=", $status);
         }
 
-        $res = $order->orderBy('or.id', 'desc')->paginate($request->get('limit',30))->toArray();
+        $res = $order->orderBy('or.id', 'desc')->paginate(15)->toArray();
 
         $data = [
             'code' => 0,

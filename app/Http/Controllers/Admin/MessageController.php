@@ -42,7 +42,7 @@ class MessageController extends Controller
                 $model = $model->whereBetween('created_at',[$res['start_time'],$res['end_time']]);
             }
         }
-        $res = $model->orderBy('read','asc')->orderBy('id','desc')->paginate($request->get('limit',30))->toArray();
+        $res = $model->orderBy('read','asc')->orderBy('id','desc')->paginate(16)->toArray();
         $users = User::pluck('name','uuid');
         $member = Member::pluck('name','uuid');
         foreach ($res['data'] as &$d) {

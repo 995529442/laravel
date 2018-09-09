@@ -23,8 +23,8 @@
                 <div class="layui-form-item">
                     <label for="" class="layui-form-label">接收人</label>
                     <div class="layui-form-mid layui-word-aux" style="float: none">
-                        <button class="layui-btn layui-bg-green layui-btn-xs"></button>-后台用户
-                        <button class="layui-btn layui-bg-black layui-btn-xs"></button>-前台用户
+                        {{--<button class="layui-btn layui-bg-green layui-btn-xs"></button>-后台用户--}}
+                        {{--<button class="layui-btn layui-bg-black layui-btn-xs"></button>-前台用户--}}
                         <button type="button" class="layui-btn layui-btn-xs" onclick="getUser()">点击选择</button>
                     </div>
                     <div class="layui-input-block">

@@ -29,7 +29,7 @@ class CaterDeskController extends Controller
         $admin_id = $admins->id;
 
         $res = DB::table("cater_desk")->where(['admin_id' => $admin_id, 'isvalid' => true])->orderBy('id', 'desc')
-            ->paginate($request->get('limit',12))->toArray();
+            ->paginate($request->get('limit',16))->toArray();
 
         $data = [
             'code' => 0,

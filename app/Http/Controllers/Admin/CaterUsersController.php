@@ -39,7 +39,7 @@ class CaterUsersController extends Controller
         if ($sex) {
             $CaterUsers->where("sex", '=', $sex);
         }
-        $res = $CaterUsers->orderBy('id', 'desc')->paginate($request->get('limit',30))->toArray();
+        $res = $CaterUsers->orderBy('id', 'desc')->paginate(16)->toArray();
 
         $data = [
             'code' => 0,

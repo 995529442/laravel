@@ -5,7 +5,7 @@
     <label class="layui-form-label">餐桌名称：</label>
     <div class="layui-input-block">
         <input type="text" name="name" id="name" value="@if($desk_info != ''){{$desk_info->name}}@endif"
-               autocomplete="off" class="layui-input" style="width:60%">
+               autocomplete="off" class="layui-input" style="width:20%">
     </div>
 </div>
 <div class="layui-form-item">

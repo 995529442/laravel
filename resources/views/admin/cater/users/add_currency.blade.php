@@ -13,7 +13,7 @@
                     <label class="layui-form-label">充值金额：</label>
                     <div class="layui-input-block">
                         <input type="text" name="money" id="money" value="" oninput="clearNoNum(this)" autocomplete="off"
-                               class="layui-input" style="width:60%">
+                               class="layui-input" style="width:20%">
                     </div>
                 </div>
 

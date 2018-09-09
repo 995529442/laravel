@@ -21,7 +21,7 @@
 </div>
 
 <script src="/js/jquery.min.js"></script>
-<script src="/js/socket.io.js"></script>
+{{--<script src="/js/socket.io.js"></script>--}}
 <script src="/static/admin/layuiadmin/layui/layui.all.js"></script>
 <script>
     $.ajaxSetup({
@@ -55,7 +55,7 @@
         @endif
 
         //监听消息推送
-        $(document).ready(function () {
+/*        $(document).ready(function () {
             // 连接服务端
             var socket = io("{{config('custom.PUSH_MESSAGE_LOGIN')}}");
             // 连接后登录
@@ -73,7 +73,7 @@
                     time: 5000
                 })
             });
-        });
+        });*/
 
     });
 

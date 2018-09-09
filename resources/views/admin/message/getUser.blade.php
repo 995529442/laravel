@@ -7,7 +7,7 @@
                 <div class="layui-input-inline">
                     <select name="user_type" lay-verify="required" lay-filter="type">
                         <option value="2">后台用户</option>
-                        <option value="3">前台用户</option>
+                        {{--<option value="3">前台用户</option>--}}
                     </select>
                 </div>
                 <div class="layui-input-inline">
