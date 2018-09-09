@@ -278,7 +278,12 @@
                     hour = date.getHours(),
                     min = date.getMinutes(),
                     sec = date.getSeconds();
-                console.log(year);
+                if(month < 10){
+                    month = "0" + month;
+                }
+                if(day < 10){
+                    day = "0" + day;
+                }
                 var newTime = year + '-' +
                     month + '-' +
                     day + ' ' +

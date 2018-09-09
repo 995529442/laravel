@@ -37,10 +37,43 @@
                             }else if($(this).text() == '0'){
                                 $(this).text("失败");
                             }
+
+                            $("[data-field = 'send_time']").children().each(function(){
+                                if( $(this).text() != '发送时间'){
+                                    $(this).text(formatDate(parseInt($(this).text())));
+                                }
+                            })
                         })
                     }
                 });
             });
+            function formatDate(time){
+                console.log(typeof time);
+                console.log(time);
+                time= time*1000;
+                var date = new Date(time);
+
+                var year = date.getFullYear(),
+                    month = date.getMonth() + 1,//月份是从0开始的
+                    day = date.getDate(),
+                    hour = date.getHours(),
+                    min = date.getMinutes(),
+                    sec = date.getSeconds();
+                if(month < 10){
+                    month = "0" + month;
+                }
+                if(day < 10){
+                    day = "0" + day;
+                }
+                var newTime = year + '-' +
+                    month + '-' +
+                    day + ' ' +
+                    hour + ':' +
+                    min + ':' +
+                    sec;
+                return newTime;
+            }
+
         </script>
     @endcan
 @endsection
