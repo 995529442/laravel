@@ -51,7 +51,7 @@
     <button style="display:inline-block;" onclick="check_address();" class="layui-btn">确认</button>
 </div>
 </body>
-<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp"></script>
 <script type="text/javascript" src="/assets/common/layui/layui.all.js"></script>
 <script>
     function init() {
