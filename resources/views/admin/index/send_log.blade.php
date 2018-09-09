@@ -25,7 +25,7 @@
                     ,cols: [[ //表头
                         {checkbox: true,fixed: true}
                         ,{field: 'id', title: '序号', sort: true,width:80,align:'center'}
-                        ,{field: 'send_to', title: '发送对象',width:160,align:'center'}
+                        ,{field: 'send_to', title: '发送对象',width:200,align:'center'}
                         ,{field: 'content', title: '发送内容',width:700,align:'center'}
                         ,{field: 'is_success', title: '发送状态',width:160,align:'center'}
                         ,{field: 'send_time', title: '发送时间',width:160,align:'center'}
