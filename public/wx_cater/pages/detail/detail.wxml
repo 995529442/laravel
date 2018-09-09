@@ -1,0 +1,58 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<import src="../template/template" />
+<view class="detail">
+  <template is="carousel" data="{{ imgUrls }}" wx:if="{{imgUrls != ''}}"></template>
+  <!-- <view class="d-wait">
+    <view wx:for="{{ waitInfo }}" wx:key="unique">
+      <view class="kind">
+        {{ item.kind }}
+      </view>
+      <view class="desk" wx:if="{{ index == 0 }}">
+        {{ item.desk }}
+      </view>
+      <view class="desk" wx:if="{{ item.number }}">
+        <text>{{ item.number }}</text>{{ item.desk }}
+      </view>
+      <view class="desk" wx:if="{{ !item.number && index != 0 }}">
+          无需等待
+      </view>
+      <view class="time">
+        {{ item.time }}
+      </view>
+    </view>
+    <text>{{ detailRules }}</text>
+  </view> -->
+  <!--restaurant-info-->
+  <view class="restaurant-info">
+    <view class="top">
+      <image src="{{url}}{{ restaurant.logo }}"></image>
+      <view class="top-center">
+        <text class="top-center-name">{{ restaurant.name }}</text>
+        <!-- <text class="restaurant-grade {{ restaurant.grade }} iconfont icon-wuxing"></text> -->
+      </view>
+      <view class="distance">距离{{restaurant.distance}}</view>
+    </view>
+    <view bindtap="openLocation" class="r-i-address iconfont icon-icglobaltitlebar48iconfontmap triangle">
+      {{ restaurant.provinve }}{{ restaurant.city }}{{ restaurant.area }}{{ restaurant.address }}
+    </view>
+    <view bindtap="callPhone" class="r-i-tel iconfont icon-dianhua triangle">{{ restaurant.phone }}</view>
+    <view class="r-i-time iconfont icon-shijian">营业时间：{{ restaurant.begin_time }}-{{ restaurant.end_time }}</view>
+    <view class="r-i-time iconfont icon-dingdan:before">类型：
+      <view style="display:inline-block;padding-left:20rpx;" wx:if="{{restaurant.is_eat_in == 2}}">堂食</view>
+      <view style="display:inline-block;padding-left:20rpx;" wx:if="{{restaurant.is_take_out == 2}}">外卖</view>
+    </view>
+    <view class="r-i-time iconfont icon-552cc4077f2ed:before">
+      营业状态：{{restaurant.status == 1?"营业中":"已打烊"}}
+    </view>
+    <view class="r-i-time iconfont icon-fapiao:before" wx:if="{{restaurant.is_take_out == 2}}">
+      配送费：{{ restaurant.shipping_fee }}元
+    </view>
+    <view class="r-i-time iconfont icon-fapiao:before" wx:if="{{restaurant.is_take_out == 2}}">
+      包装费：{{ restaurant.package_fee }}元
+    </view>
+    <view class="r-i-time iconfont icon-xiaoxi:before">
+      餐厅介绍：{{restaurant.introduce}}
+    </view>
+  </view>
+</view>
+<!-- <navigator open-type="redirect" url="../ordering/ordering?shopId={{ restaurant.id }}" hover-class="none" class="take-number">立即取号</navigator> -->

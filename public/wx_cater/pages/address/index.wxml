@@ -1,0 +1,59 @@
+<import src="../template/userInfo.wxml" />
+<template is="userinfo" data="{{userinfo_box:userinfo_box}}" />
+<view hidden="{{ allHidden }}">
+  <view hidden="{{ hiddenMain }}" wx:if="{{ showMain }}" class="businessCooperation">
+    <form bindsubmit="formSubmit">
+      <input value="{{user_shipping.id}}" name="address_id" hidden='true' />
+      <view class="lxr">
+        <text>联系人</text>
+        <input value="{{user_shipping.user_name}}" name="user_name" placeholder="请填写收货人的姓名" />
+      </view>
+      <view class="lxr">
+        <text>联系电话</text>
+        <input value="{{user_shipping.phone}}" name="phone" placeholder="请填写收货手机号码" type="number" />
+      </view>
+      <view class="lxr">
+        <text>省市区</text>
+        <view bindtap="open" class="input-txt iconfont icon-icglobaltitlebar48iconfontmap" wx:if="{{province !='' && city !='' && county !=''}}" style="position:absolute;right:40rpx;">
+          {{province}}-{{city}}-{{county}}
+        </view>
+        <view bindtap="open" class="input-txt iconfont icon-icglobaltitlebar48iconfontmap" wx:else style="position:absolute;right:40rpx;color: #ed4d30;">
+          选择地址
+        </view>
+      </view>
+      <view class="lxr">
+        <text>收货地址</text>
+        <view bindtap="addMapSite" class="input-txt iconfont icon-icglobaltitlebar48iconfontmap" style="position:absolute;right:40rpx;color: #ed4d30;"> {{ shopAddress }}</view>
+      </view>
+      <view class="lxr">
+        <text>门牌号</text>
+        <input value="{{user_shipping.house_number}}" name="addressDetail" placeholder="例：16号楼5层301室" />
+      </view>
+      <view class="lxr">
+        <text>是否默认</text>
+        <switch bindchange="default_address" wx:if="{{user_shipping.is_default}}" checked style="margin-left:430rpx;width"/>
+        <switch bindchange="default_address" wx:else style="margin-left:430rpx;width"/>
+      </view>
+      <button formType="submit" class="start-shop">保存</button>
+    </form>
+  </view>
+</view>
+<!-- S 选择省市区 -->
+<view wx:if="{{condition}}" class="citypicker">
+  <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange" class="citybody">
+    <view class="cityheader">
+      <view bindtap="open" class="city-cancel">取消</view>
+      <view bindtap="open" class="city-true">确定</view>
+    </view>
+    <picker-view-column>
+      <view wx:for="{{provinces}}" wx:key="item" style="line-height: 50px;padding-left:10px;">{{item}}</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{citys}}" wx:key="item" style="line-height: 50px;padding-left:10px;">{{item}}</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{countys}}" wx:key="item" style="line-height: 50px;padding-left:10px;">{{item}}</view>
+    </picker-view-column>
+  </picker-view>
+</view>
+<!-- E 选择省市区 -->
