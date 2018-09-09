@@ -9,21 +9,21 @@
 
                 <div class="layui-card-header">
 
-                    访问量
+                    总收入
 
-                    <span class="layui-badge layui-bg-blue layuiadmin-badge">周</span>
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">日</span>
 
                 </div>
 
                 <div class="layui-card-body layuiadmin-card-list">
 
-                    <p class="layuiadmin-big-font">9,999,666</p>
+                    <p class="layuiadmin-big-font">{{$day_money}}</p>
 
                     <p>
 
-                        总计访问量
+                        同比增长
 
-                        <span class="layuiadmin-span-color">88万 <i class="layui-inline layui-icon layui-icon-flag"></i></span>
+                        <span class="layuiadmin-span-color">{{round($day_money-$yesterday_money,2)}}元 <i class="layui-inline layui-icon layui-icon-dollar"></i></span>
 
                     </p>
 
@@ -39,21 +39,21 @@
 
                 <div class="layui-card-header">
 
-                    下载
+                    总收入
 
-                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span>
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">周</span>
 
                 </div>
 
                 <div class="layui-card-body layuiadmin-card-list">
 
-                    <p class="layuiadmin-big-font">33,555</p>
+                    <p class="layuiadmin-big-font">{{$week_money}}</p>
 
                     <p>
 
-                        新下载
+                        同比增长
 
-                        <span class="layuiadmin-span-color">10% <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
+                        <span class="layuiadmin-span-color">{{round($week_money-$lastweek_money,2)}}元 <i class="layui-inline layui-icon layui-icon-dollar"></i></span>
 
                     </p>
 
@@ -69,9 +69,9 @@
 
                 <div class="layui-card-header">
 
-                    收入
+                    总收入
 
-                    <span class="layui-badge layui-bg-green layuiadmin-badge">年</span>
+                    <span class="layui-badge layui-bg-green layuiadmin-badge">月</span>
 
                 </div>
 
@@ -79,13 +79,13 @@
 
 
 
-                    <p class="layuiadmin-big-font">999,666</p>
+                    <p class="layuiadmin-big-font">{{$month_money}}</p>
 
                     <p>
 
-                        总收入
+                        同比增长
 
-                        <span class="layuiadmin-span-color">*** <i class="layui-inline layui-icon layui-icon-dollar"></i></span>
+                        <span class="layuiadmin-span-color">{{round($month_money-$lastmonth_money,2)}}元 <i class="layui-inline layui-icon layui-icon-dollar"></i></span>
 
                     </p>
 
@@ -101,9 +101,9 @@
 
                 <div class="layui-card-header">
 
-                    活跃用户
+                    日订单数
 
-                    <span class="layui-badge layui-bg-orange layuiadmin-badge">月</span>
+                    <span class="layui-badge layui-bg-orange layuiadmin-badge">日</span>
 
                 </div>
 
@@ -111,13 +111,13 @@
 
 
 
-                    <p class="layuiadmin-big-font">66,666</p>
+                    <p class="layuiadmin-big-font">{{$day_num}}</p>
 
                     <p>
 
-                        最近一个月
+                        同比增长
 
-                        <span class="layuiadmin-span-color">15% <i class="layui-inline layui-icon layui-icon-user"></i></span>
+                        <span class="layuiadmin-span-color">{{$day_num-$yesterday_num}}单<i class="layui-inline layui-icon layui-icon-dollar"></i></span>
 
                     </p>
 

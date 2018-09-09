@@ -9,8 +9,8 @@
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
             <h2>订单详情</h2>
-            <button style="float:right;margin-top:-8px;" onclick="javascript:history.go(-1);"
-                    class="layui-btn layui-btn-primary">返回
+            <button  style="float:right;margin-top:-8px;" class="layui-btn" href="{{route('cater.orders.index')}}" >
+                返 回
             </button>
         </div>
         <div class="layui-card-header layuiadmin-card-header-auto">

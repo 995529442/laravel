@@ -20,7 +20,8 @@ Page({
         goods_id_arr: '',
         is_locked_pay: 0,
         pay_type: -1,      //支付方式 0微信支付 ，1购物币支付
-        is_open_currency: 0  //是否开启购物币支付
+        is_open_currency: 0,  //是否开启购物币支付
+        remark:''
     },
     /**
      * 支付货款
@@ -229,6 +230,13 @@ Page({
         var currency_password = typeof (e.detail.value.currency_password) == 'undefined' ? '' : e.detail.value.currency_password;
         var remark = typeof (e.detail.value.remark) == 'undefined' ? '' : e.detail.value.remark;
 
+        if (remark != "") {
+            that.setData({
+                remark: remark
+            })
+        } else if (that.data.remark != ""){
+            remark = that.data.remark;
+        }
         if (pay_type == 1 && !currency_pay_box) {  //购物币支付
             that.setData({
                 currency_pay_box: true
@@ -273,6 +281,7 @@ Page({
         wx.showLoading({
             title: '支付中',
         })
+
         wx.request({
             url: app.globalData.appUrl + '/api/cater/order/pay',
             data: {

@@ -32,7 +32,62 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('admin.index.index');
+        //获取收入情况
+        $day_money = 0;  //日收入情况
+        $yesterday_money = 0;  //昨日收入情况
+
+        $week_money = 0;  //周收入情况
+        $lastweek_money = 0;  //上周收入情况
+
+        $month_money = 0;  //月收入情况
+        $lastmonth_money = 0;  //上月收入情况
+
+        $day_num = 0;  //日订单数
+        $yesterday_num = 0;  //昨日订单数
+
+        $where = array(
+            "admin_id"=>Auth::guard()->user()->id,
+            "pay_type"=>1,
+            "status" =>5,
+            "isvalid"=>true
+        );
+
+        $day_money =  DB::table("cater_orders")->where($where)->where("create_time",">",strtotime(date("Y-m-d",time())))
+            ->where("create_time","<=",strtotime(date("Y-m-d",time()))+3600*24-1)->sum('real_pay');
+
+        $yesterday_money =  DB::table("cater_orders")->where($where)->where("create_time",">",strtotime(date("Y-m-d",strtotime("-1 day"))))
+            ->where("create_time","<=",strtotime(date("Y-m-d",strtotime("-1 day")))+3600*24-1)->sum('real_pay');
+
+        $week_money =  DB::table("cater_orders")->where($where)->where("create_time",">",strtotime(date("Y-m-d",strtotime("-6 day"))))
+            ->where("create_time","<=",strtotime(date("Y-m-d",time()))+3600*24-1)->sum('real_pay');
+
+        $lastweek_money =  DB::table("cater_orders")->where($where)->where("create_time",">",strtotime(date("Y-m-d",strtotime("-13 day"))))
+            ->where("create_time","<=",strtotime(date("Y-m-d",strtotime("-7 day")))+3600*24-1)->sum('real_pay');
+
+        $BeginDate=date('Y-m-01', strtotime(date("Y-m-d")));
+        $month_money =  DB::table("cater_orders")->where($where)->where("create_time",">",strtotime($BeginDate))
+            ->where("create_time","<=",strtotime("$BeginDate +1 month -1 day")+3600*24-1)->sum('real_pay');
+
+        $lastmonth_money =  DB::table("cater_orders")->where($where)->where("create_time",">",strtotime(date("Y-m-d",strtotime(date('Y-m-01') . ' -1 month'))))
+            ->where("create_time","<=",strtotime(date("Y-m-d",strtotime(date('Y-m-01') . ' -1 day')))+3600*24-1)->sum('real_pay');
+
+        unset($where['status']);
+        $day_num =  DB::table("cater_orders")->where($where)->where('status','>',0)->where("create_time",">",strtotime(date("Y-m-d",time())))
+            ->where("create_time","<=",strtotime(date("Y-m-d",time()))+3600*24-1)->count();
+
+        $yesterday_num =  DB::table("cater_orders")->where($where)->where('status','>',0)->where("create_time",">",strtotime(date("Y-m-d",strtotime("-1 day"))))
+            ->where("create_time","<=",strtotime(date("Y-m-d",strtotime("-1 day")))+3600*24-1)->count();
+
+        return view('admin.index.index',[
+            'day_money' => $day_money,
+            'yesterday_money' => $yesterday_money,
+            'week_money' => $week_money,
+            'lastweek_money' => $lastweek_money,
+            'month_money' => $month_money,
+            'lastmonth_money' => $lastmonth_money,
+            'day_num' => $day_num,
+            'yesterday_num' => $yesterday_num
+        ]);
     }
     public function index1()
     {
