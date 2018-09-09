@@ -117,7 +117,7 @@ class CaterDeskController extends Controller
                     $return['msg'] = '删除成功';
                 }
             } else {  //生成二维码
-                $result = MiniappApi::createQrCode(1, '/cater/desk');
+                $result = MiniappApi::createQrCode($admin_id, '/cater/desk');
 
                 if ($result['errcode'] == 1) { //成功
                     $return['code'] = 0;
