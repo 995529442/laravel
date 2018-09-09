@@ -4,7 +4,8 @@ Route::post('uploadImg', 'PublicController@uploadImg')->name('uploadImg');
 //发送短信
 Route::post('/sendMsg', 'PublicController@sendMsg')->name('sendMsg');
 
-Route::get('/','Home\IndexController@index')->name('home');
+//Route::get('/','Home\IndexController@index')->name('home');
+Route::get('/','Admin\IndexController@layout')->middleware("auth")->name('admin.layout');
 
 //支付
 Route::group(['namespace' => 'Home'], function () {
