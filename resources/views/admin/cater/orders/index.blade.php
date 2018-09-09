@@ -267,9 +267,7 @@
                 }
             }
             function formatDate(time){
-                console.log(typeof time);
-                console.log(time);
-                time= time*1000;
+                var time= time*1000;
                 var date = new Date(time);
 
                 var year = date.getFullYear(),

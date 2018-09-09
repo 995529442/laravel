@@ -40,6 +40,7 @@
 
                             $("[data-field = 'send_time']").children().each(function(){
                                 if( $(this).text() != '发送时间'){
+                                    console.log(parseInt($(this).text()));
                                     $(this).text(formatDate(parseInt($(this).text())));
                                 }
                             })
@@ -48,9 +49,7 @@
                 });
             });
             function formatDate(time){
-                console.log(typeof time);
-                console.log(time);
-                time= time*1000;
+                var time= time*1000;
                 var date = new Date(time);
 
                 var year = date.getFullYear(),
