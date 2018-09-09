@@ -37,13 +37,12 @@
                             }else if($(this).text() == '0'){
                                 $(this).text("失败");
                             }
+                        })
 
-                            $("[data-field = 'send_time']").children().each(function(){
-                                if( $(this).text() != '发送时间'){
-                                    console.log(parseInt($(this).text()));
-                                    $(this).text(formatDate(parseInt($(this).text())));
-                                }
-                            })
+                        $("[data-field = 'send_time']").children().each(function(){
+                            if( $(this).text() != '发送时间'){
+                                $(this).text(formatDate(parseInt($(this).text())));
+                            }
                         })
                     }
                 });
