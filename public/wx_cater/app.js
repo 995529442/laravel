@@ -2,7 +2,7 @@
 App({
     globalData: {
         appUrl: "https://samproject.cn",  //根路径
-        admin_id: 1,
+        admin_id: 2,
         cater_type: 2  //类型，1堂食 2外卖 3排队
     },
     onLaunch: function () {
@@ -24,7 +24,7 @@ App({
                             code: res.code,
                             iv: cb.detail.iv,
                             encrypted_data: cb.detail.encryptedData,
-                            admin_id: 1,
+                            admin_id: 2,
                         },
                         header: {
                             'content-type': 'application/json'
