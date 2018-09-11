@@ -76,19 +76,19 @@ class IndexController extends Controller
             ->where("create_time","<=",strtotime(date("Y-m-d",strtotime(date('Y-m-01') . ' -1 day')))+3600*24-1)->sum('real_pay');
 
         if($yesterday_money){
-            $day_ratil = ($day_money-$yesterday_money)/$yesterday_money*100;
+            $day_ratil = round(($day_money-$yesterday_money)/$yesterday_money*100,2);
         }else{
             $day_ratil = 100;
         }
 
         if($lastweek_money){
-            $week_ratil = ($week_money-$lastweek_money)/$lastweek_money*100;
+            $week_ratil = round(($week_money-$lastweek_money)/$lastweek_money*100,2);
         }else{
             $week_ratil = 100;
         }
 
         if($lastmonth_money){
-            $month_ratil = ($month_money-$lastmonth_money)/$lastmonth_money*100;
+            $month_ratil = round(($month_money-$lastmonth_money)/$lastmonth_money*100,2);
         }else{
             $month_ratil = 100;
         }
