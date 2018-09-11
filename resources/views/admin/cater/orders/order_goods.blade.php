@@ -23,9 +23,9 @@
                         ">订单类型</td>
                         <td style="width:40%;">
                             @if($order_detail->type == 1)
-                                外卖
-                            @elseif($order_detail->type == 2)
                                 点餐
+                            @elseif($order_detail->type == 2)
+                                外卖
                             @endif
                         </td>
                     </tr>
