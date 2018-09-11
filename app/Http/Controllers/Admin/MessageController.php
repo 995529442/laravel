@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Models\User;
 use App\Traits\PushMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 class MessageController extends Controller
@@ -42,6 +43,8 @@ class MessageController extends Controller
                 $model = $model->whereBetween('created_at',[$res['start_time'],$res['end_time']]);
             }
         }
+        $model = $model -> where('send_uuid',Auth::guard()->user()->uuid)
+            ->orWhere("accept_uuid",Auth::guard()->user()->uuid);
         $res = $model->orderBy('read','asc')->orderBy('id','desc')->paginate(16)->toArray();
         $users = User::pluck('name','uuid');
         $member = Member::pluck('name','uuid');
@@ -103,6 +106,11 @@ class MessageController extends Controller
             $keywords = $request->get('keywords');
             if ($keywords){
                 $model = $model->where('name','like','%'.$keywords.'%')->orWhere('phone','like','%'.$keywords.'%');
+            }
+            if(Auth::guard()->user()->id > 1){ //普通管理员
+                $model = $model->whereId(1);
+            }else{
+                $model = $model->where('id','>',1);
             }
             $res = $model->orderBy('id','desc')->paginate($request->get('limit',30))->toArray();
             $data = [

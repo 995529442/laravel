@@ -45,6 +45,10 @@ class IndexController extends Controller
         $day_num = 0;  //日订单数
         $yesterday_num = 0;  //昨日订单数
 
+        $day_ratil = 0; //日收入增比
+        $week_ratil = 0; //周收入增比
+        $month_ratil = 0; //月收入增比
+
         $where = array(
             "admin_id"=>Auth::guard()->user()->id,
             "pay_type"=>1,
@@ -71,6 +75,23 @@ class IndexController extends Controller
         $lastmonth_money =  DB::table("cater_orders")->where($where)->where("create_time",">",strtotime(date("Y-m-d",strtotime(date('Y-m-01') . ' -1 month'))))
             ->where("create_time","<=",strtotime(date("Y-m-d",strtotime(date('Y-m-01') . ' -1 day')))+3600*24-1)->sum('real_pay');
 
+        if($yesterday_money){
+            $day_ratil = ($day_money-$yesterday_money)/$yesterday_money*100;
+        }else{
+            $day_ratil = 100;
+        }
+
+        if($lastweek_money){
+            $week_ratil = ($week_money-$lastweek_money)/$lastweek_money*100;
+        }else{
+            $week_ratil = 100;
+        }
+
+        if($lastmonth_money){
+            $month_ratil = ($month_money-$lastmonth_money)/$lastmonth_money*100;
+        }else{
+            $month_ratil = 100;
+        }
         unset($where['status']);
         $day_num =  DB::table("cater_orders")->where($where)->where('status','>',0)->where("create_time",">",strtotime(date("Y-m-d",time())))
             ->where("create_time","<=",strtotime(date("Y-m-d",time()))+3600*24-1)->count();
@@ -78,6 +99,50 @@ class IndexController extends Controller
         $yesterday_num =  DB::table("cater_orders")->where($where)->where('status','>',0)->where("create_time",">",strtotime(date("Y-m-d",strtotime("-1 day"))))
             ->where("create_time","<=",strtotime(date("Y-m-d",strtotime("-1 day")))+3600*24-1)->count();
 
+        //获取我的消息
+        $message = DB::table("messages")->where(['send_uuid'=>Auth::guard()->user()->uuid])
+            ->orWhere(['accept_uuid'=>Auth::guard()->user()->uuid])->orderBy('read','asc')
+            ->select(['title','content','read','created_at'])->orderBy('id','desc')->paginate(16);
+
+        //获取用户排行榜
+        $user_info = DB::table("cater_users")->where(['admin_id'=>Auth::guard()->user()->id,'isvalid'=>true])
+            ->select(['weixin_name','mobile','order_complete_num','total_money'])
+            ->orderByDesc('total_money')
+            ->limit(10)
+            ->get();
+
+        //菜品销量排行榜
+        $goods_info = DB::table("cater_goods as g")->leftJoin('cater_category as ca','ca.id','=','g.cate_id')
+            ->where(['g.admin_id'=>Auth::guard()->user()->id,'g.isvalid'=>true])
+            ->select(['ca.cate_name','g.good_name','g.storenum','g.sell_count'])
+            ->orderByDesc("sell_count")
+            ->limit(10)
+            ->get();
+
+        //当前日期
+        $categories = "";  //日期
+        $tangshi = ""; //堂食
+        $waimai = ""; //外卖
+
+        $where['status'] = 5;
+        for($k=6;$k>=0;$k--){
+            $micro_time = strtotime("-$k day");
+            $day = date("m-d",$micro_time);
+
+            $categories .= $day.",";
+            //获取点餐和外卖的订单情况
+            $tangshi_count =  DB::table("cater_orders")->where($where)->where("create_time",">",strtotime(date("Y-m-d",$micro_time)))
+                ->where("create_time","<=",strtotime(date("Y-m-d",$micro_time))+3600*24-1)->where(['type'=>1])->count();
+            $waimai_count = DB::table("cater_orders")->where($where)->where("create_time",">",strtotime(date("Y-m-d",$micro_time)))
+                ->where("create_time","<=",strtotime(date("Y-m-d",$micro_time))+3600*24-1)->where(['type'=>2])->count();
+
+            $tangshi .= $tangshi_count.",";
+            $waimai .= $waimai_count.",";
+        }
+
+        $day_ratil = 0; //日收入增比
+        $week_ratil = 0; //周收入增比
+        $month_ratil = 0; //月收入增比
         return view('admin.index.index',[
             'day_money' => $day_money,
             'yesterday_money' => $yesterday_money,
@@ -86,7 +151,16 @@ class IndexController extends Controller
             'month_money' => $month_money,
             'lastmonth_money' => $lastmonth_money,
             'day_num' => $day_num,
-            'yesterday_num' => $yesterday_num
+            'yesterday_num' => $yesterday_num,
+            'message' => $message,
+            'user_info'=>$user_info,
+            'goods_info'=>$goods_info,
+            "categories" => rtrim($categories,','),
+            "tangshi" => rtrim($tangshi,','),
+            "waimai" => rtrim($waimai,','),
+            'day_ratil'=>$day_ratil,
+            'week_ratil'=>$week_ratil,
+            'month_ratil'=>$month_ratil
         ]);
     }
     public function index1()

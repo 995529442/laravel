@@ -133,15 +133,7 @@
 
                 <div class="layui-card-header">
 
-                    访问量
-
-                    <div class="layui-btn-group layuiadmin-btn-group">
-
-                        <a href="javascript:;" class="layui-btn layui-btn-primary layui-btn-xs">去年</a>
-
-                        <a href="javascript:;" class="layui-btn layui-btn-primary layui-btn-xs">今年</a>
-
-                    </div>
+                    订单趋势统计
 
                 </div>
 
@@ -149,9 +141,9 @@
 
                     <div class="layui-row">
 
-                        <div class="layui-col-sm8">
+                        <div class="layui-col-sm8" id="container">
 
-                            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-pagetwo">
+{{--                            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-pagetwo">
 
                                 <div carousel-item id="LAY-index-pagetwo">
 
@@ -159,7 +151,7 @@
 
                                 </div>
 
-                            </div>
+                            </div>--}}
 
                         </div>
 
@@ -167,28 +159,44 @@
 
                             <div class="layuiadmin-card-list">
 
-                                <p class="layuiadmin-normal-font">月访问数</p>
+                                <p class="layuiadmin-normal-font">日收入</p>
 
-                                <span>同上期增长</span>
+                                <span>
+                                    @if($month_ratil > 0)
+                                        同上期增长
+                                    @else
+                                        同上期减少
+                                    @endif
+                                </span>
 
                                 <div class="layui-progress layui-progress-big" lay-showPercent="yes">
-
-                                    <div class="layui-progress-bar" lay-percent="30%"></div>
-
+                                    @if($day_ratil > 0)
+                                        <div class="layui-progress-bar" lay-percent="{{$day_ratil}}%"></div>
+                                    @else
+                                        <div class="layui-progress-bar layui-bg-red" lay-percent="{{abs($day_ratil)}}%"></div>
+                                    @endif
                                 </div>
 
                             </div>
 
                             <div class="layuiadmin-card-list">
 
-                                <p class="layuiadmin-normal-font">月下载数</p>
+                                <p class="layuiadmin-normal-font">周收入</p>
 
-                                <span>同上期增长</span>
+                                <span>
+                                    @if($month_ratil > 0)
+                                        同上期增长
+                                    @else
+                                        同上期减少
+                                    @endif
+                                </span>
 
                                 <div class="layui-progress layui-progress-big" lay-showPercent="yes">
-
-                                    <div class="layui-progress-bar" lay-percent="20%"></div>
-
+                                    @if($week_ratil > 0)
+                                        <div class="layui-progress-bar" lay-percent="{{$week_ratil}}%"></div>
+                                    @else
+                                        <div class="layui-progress-bar layui-bg-red" lay-percent="{{abs($week_ratil)}}%"></div>
+                                    @endif
                                 </div>
 
                             </div>
@@ -197,12 +205,19 @@
 
                                 <p class="layuiadmin-normal-font">月收入</p>
 
-                                <span>同上期增长</span>
-
+                                <span>
+                                    @if($month_ratil > 0)
+                                        同上期增长
+                                    @else
+                                        同上期减少
+                                    @endif
+                                </span>
                                 <div class="layui-progress layui-progress-big" lay-showPercent="yes">
-
-                                    <div class="layui-progress-bar" lay-percent="25%"></div>
-
+                                    @if($month_ratil > 0)
+                                        <div class="layui-progress-bar" lay-percent="{{$month_ratil}}%"></div>
+                                    @else
+                                        <div class="layui-progress-bar layui-bg-red" lay-percent="{{abs($month_ratil)}}%"></div>
+                                    @endif
                                 </div>
 
                             </div>
@@ -221,84 +236,22 @@
 
             <div class="layui-card">
 
-                <div class="layui-card-header">用户留言</div>
+                <div class="layui-card-header">我的消息</div>
 
                 <div class="layui-card-body">
 
                     <ul class="layuiadmin-card-status layuiadmin-home2-usernote">
-
+                        @foreach($message as $v)
                         <li>
 
-                            <h3>贤心</h3>
+                            <h3>{{$v->title}}</h3>
 
-                            <p>作为 layui 官方推出的后台模板，从初版的饱受争议，到后续的埋头丰富，逐步占据了国内后台系统应用的主要市场。</p>
+                            <p>{{$v->content}}</p>
 
-                            <span>5月30日 00:00</span>
-
-                            <a href="javascript:;" layadmin-event="replyNote" data-id="7" class="layui-btn layui-btn-xs layuiadmin-reply">回复</a>
+                            <span>{{$v->created_at}}</span>
 
                         </li>
-
-                        <li>
-
-                            <h3>诸葛亮</h3>
-
-                            <p>皓首匹夫！苍髯老贼！你枉活九十有六，一生未立寸功，只会摇唇鼓舌！助曹为虐！一条断脊之犬，还敢在我军阵前狺狺狂吠，我从未见过有如此厚颜无耻之人！</p>
-
-                            <span>5月02日 00:00</span>
-
-                            <a href="javascript:;" layadmin-event="replyNote" data-id="5" class="layui-btn layui-btn-xs layuiadmin-reply">回复</a>
-
-                        </li>
-
-                        <li>
-
-                            <h3>胡歌</h3>
-
-                            <p>你以为只要长得漂亮就有男生喜欢？你以为只要有了钱漂亮妹子就自己贴上来了？你以为学霸就能找到好工作？我告诉你吧，这些都是真的！</p>
-
-                            <span>5月11日 00:00</span>
-
-                            <a href="javascript:;" layadmin-event="replyNote" data-id="6" class="layui-btn layui-btn-xs layuiadmin-reply">回复</a>
-
-                        </li>
-
-                        <li>
-
-                            <h3>杜甫</h3>
-
-                            <p>人才虽高，不务学问，不能致圣。刘向十日画一水，五日画一石。</p>
-
-                            <span>4月11日 00:00</span>
-
-                            <a href="javascript:;" layadmin-event="replyNote" data-id="2" class="layui-btn layui-btn-xs layuiadmin-reply">回复</a>
-
-                        </li>
-
-                        <li>
-
-                            <h3>鲁迅</h3>
-
-                            <p>路本是无所谓有和无的，走的人多了，就没路了。。</p>
-
-                            <span>4月28日 00:00</span>
-
-                            <a href="javascript:;" layadmin-event="replyNote" data-id="4" class="layui-btn layui-btn-xs layuiadmin-reply">回复</a>
-
-                        </li>
-
-                        <li>
-
-                            <h3>张爱玲</h3>
-
-                            <p>于千万人之中遇到你所要遇到的人，于千万年之中，时间的无涯的荒野中，没有早一步，也没有晚一步，刚巧赶上了，那也没有别的话好说，唯有轻轻的问一声：“噢，原来你也在这里？”</p>
-
-                            <span>4月11日 00:00</span>
-
-                            <a href="javascript:;" layadmin-event="replyNote" data-id="1" class="layui-btn layui-btn-xs layuiadmin-reply">回复</a>
-
-                        </li>
-
+                        @endforeach
                     </ul>
 
                 </div>
@@ -315,7 +268,7 @@
 
                     <div class="layui-card">
 
-                        <div class="layui-card-header">本周活跃用户列表</div>
+                        <div class="layui-card-header">用户消费排行榜</div>
 
                         <div class="layui-card-body">
 
@@ -327,102 +280,40 @@
 
                                     <th>用户名</th>
 
-                                    <th>最后登录时间</th>
+                                    <th>手机号</th>
 
-                                    <th>状态</th>
+                                    <th>订单总数量</th>
 
-                                    <th>获得赞</th>
+                                    <th>消费总金额</th>
 
                                 </tr>
 
                                 </thead>
 
                                 <tbody>
+                                 @foreach($user_info as $k=>$v)
+                                    <tr>
+                                        <td>
+                                            @if($k==0)
+                                                <span class="first">{{$v->weixin_name}}</span>
+                                            @elseif($k==1)
+                                                <span class="second">{{$v->weixin_name}}</span>
+                                             @elseif($k==2)
+                                                <span class="third">{{$v->weixin_name}}</span>
+                                            @else
+                                                {{$v->weixin_name}}
+                                            @endif
 
-                                <tr>
+                                        </td>
 
-                                    <td><span class="first">胡歌</span></td>
+                                        <td>{{$v->mobile}}</td>
 
-                                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
+                                        <td>{{$v->order_complete_num}}</td>
 
-                                    <td><span>在线</span></td>
+                                        <td><span class="first">{{$v->total_money}}</span></td>
 
-                                    <td>22 <i class="layui-icon layui-icon-praise"></i></td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td><span class="second">彭于晏</span></td>
-
-                                    <td><i class="layui-icon layui-icon-log"> 10:40</i></td>
-
-                                    <td><span>在线</span></td>
-
-                                    <td>21 <i class="layui-icon layui-icon-praise"></i></td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td><span class="third">靳东</span></td>
-
-                                    <td><i class="layui-icon layui-icon-log"> 01:30</i></td>
-
-                                    <td><i>离线</i></td>
-
-                                    <td>66 <i class="layui-icon layui-icon-praise"></i></td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>吴尊</td>
-
-                                    <td><i class="layui-icon layui-icon-log"> 21:18</i></td>
-
-                                    <td><i>离线</i></td>
-
-                                    <td>45 <i class="layui-icon layui-icon-praise"></i></td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>许上进</td>
-
-                                    <td><i class="layui-icon layui-icon-log"> 09:30</i></td>
-
-                                    <td><span>在线</span></td>
-
-                                    <td>21 <i class="layui-icon layui-icon-praise"></i></td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>小蚊子</td>
-
-                                    <td><i class="layui-icon layui-icon-log"> 21:18</i></td>
-
-                                    <td><i>在线</i></td>
-
-                                    <td>45 <i class="layui-icon layui-icon-praise"></i></td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>贤心</td>
-
-                                    <td><i class="layui-icon layui-icon-log"> 09:30</i></td>
-
-                                    <td><span>在线</span></td>
-
-                                    <td>21 <i class="layui-icon layui-icon-praise"></i></td>
-
-                                </tr>
-
+                                    </tr>
+                                @endforeach
                                 </tbody>
 
                             </table>
@@ -437,141 +328,55 @@
 
                     <div class="layui-card">
 
-                        <div class="layui-card-header">项目进展</div>
+                        <div class="layui-card-header">菜品销售排行榜</div>
 
                         <div class="layui-card-body">
 
-                            <div class="layui-tab-content">
+                            <table class="layui-table layuiadmin-page-table" lay-skin="line">
 
-                                <div class="layui-tab-item layui-show">
+                                <thead>
 
-                                    <table id="LAY-index-prograss"></table>
+                                <tr>
 
-                                </div>
+                                    <th>菜品名称</th>
 
-                            </div>
+                                    <th>所属分类</th>
 
-                        </div>
+                                    <th>库存</th>
 
-                    </div>
+                                    <th>实际销量</th>
 
-                </div>
+                                </tr>
 
-                <div class="layui-col-sm12">
+                                </thead>
 
-                    <div class="layui-card">
+                                <tbody>
+                                @foreach($goods_info as $k=>$v)
+                                    <tr>
+                                        <td>
+                                            @if($k==0)
+                                                <span class="first">{{$v->good_name}}</span>
+                                            @elseif($k==1)
+                                                <span class="second">{{$v->good_name}}</span>
+                                            @elseif($k==2)
+                                                <span class="third">{{$v->good_name}}</span>
+                                            @else
+                                                {{$v->good_name}}
+                                            @endif
 
-                        <div class="layui-card-header">用户全国分布</div>
+                                        </td>
 
-                        <div class="layui-card-body">
+                                        <td>{{$v->cate_name}}</td>
 
-                            <div class="layui-row layui-col-space15">
+                                        <td>{{$v->storenum}}</td>
 
-                                <div class="layui-col-sm4">
+                                        <td><span class="first">{{$v->sell_count}}</span></td>
 
-                                    <table class="layui-table layuiadmin-page-table" lay-skin="line">
+                                    </tr>
+                                @endforeach
+                                </tbody>
 
-                                        <thead>
-
-                                        <tr>
-
-                                            <th>排名</th>
-
-                                            <th>地区</th>
-
-                                            <th>人数</th>
-
-                                        </tr>
-
-                                        </thead>
-
-                                        <tbody>
-
-                                        <tr>
-
-                                            <td>1</td>
-
-                                            <td>浙江</td>
-
-                                            <td>62310</td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <td>2</td>
-
-                                            <td>上海</td>
-
-                                            <td>59190</td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <td>3</td>
-
-                                            <td>广东</td>
-
-                                            <td>55891</td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <td>4</td>
-
-                                            <td>北京</td>
-
-                                            <td>51919</td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <td>5</td>
-
-                                            <td>山东</td>
-
-                                            <td>39231</td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <td>6</td>
-
-                                            <td>湖北</td>
-
-                                            <td>37109</td>
-
-                                        </tr>
-
-                                        </tbody>
-
-                                    </table>
-
-                                </div>
-
-                                <div class="layui-col-sm8">
-
-
-
-                                    <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-pagethree">
-
-                                        <div carousel-item id="LAY-index-pagethree">
-
-                                            <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                </div>
-
-                            </div>
+                            </table>
 
                         </div>
 
@@ -587,7 +392,79 @@
 @endsection
 
 @section('script')
+    <script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/series-label.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/oldie.js"></script>
+    <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
     <script>
         layui.use(['index', 'sample']);
+        var categories = '{{$categories}}';
+        var categories_arr = new Array();
+
+        var tangshi = '{{$tangshi}}';
+        var tangshi_arr = new Array();
+
+        var waimai = '{{$waimai}}';
+        var waimai_arr = new Array();
+
+        if(categories != ""){
+            categories_arr = categories.split(",");
+        }
+
+        if(tangshi != ""){
+            tangshi_arr = tangshi.split(",");
+            for(var k=0;k<tangshi_arr.length;k++){
+                tangshi_arr[k] = parseInt(tangshi_arr[k]);
+            }
+        }
+
+        if(waimai != ""){
+            waimai_arr = waimai.split(",");
+            for(var kk=0;kk<waimai_arr.length;kk++){
+                waimai_arr[kk] = parseInt(waimai_arr[kk]);
+            }
+
+        }
+
+        var chart = Highcharts.chart('container', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: '最近7天订单趋势统计'
+            },
+            subtitle: {
+                text: '已完成订单数'
+            },
+            xAxis: {
+                categories: categories_arr
+            },
+            yAxis: {
+                title: {
+                    text: '订单数(/笔)'
+                }
+            },
+            credits:{
+                enabled: false // 禁用版权信息
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        // 开启数据标签
+                        enabled: true
+                    },
+                    // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name: '外卖',
+                data: waimai_arr
+            }, {
+                name: '点餐',
+                data: tangshi_arr
+            }]
+        });
     </script>
 @endsection
