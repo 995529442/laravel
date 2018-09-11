@@ -9,7 +9,7 @@
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
             <h2>订单详情</h2>
-            <a  style="float:right;margin-top:-8px;" class="layui-btn" href="{{route('cater.orders.index')}}" >
+            <a  style="float:right;margin-top:-8px;" class="layui-btn layui-btn-primary" href="{{route('cater.orders.index')}}" >
                 返 回
             </a>
         </div>

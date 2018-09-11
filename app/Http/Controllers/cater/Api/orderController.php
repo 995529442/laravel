@@ -181,6 +181,7 @@ class orderController extends Controller
         $formId = $request->input("formId", '') == null ? '' : $request->input("formId", '');
         $currency_password = $request->input("currency_password", '') == null ? '' : $request->input("currency_password", '');
         $payment_type = (int)$request->input("pay_type", 0); //支付方式 0微信支付1购物币支付
+        $send_to = $request->input("send_to", '');
 
         $return = array(
             "errcode" => -1,
@@ -253,6 +254,7 @@ class orderController extends Controller
                 "remark" => $remark,
                 "create_time" => time(),
                 "payment_type" => $payment_type,
+                "send_to"=>$send_to,
                 "isvalid" => true
             );
 
