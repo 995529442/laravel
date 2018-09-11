@@ -136,6 +136,13 @@ class getShopController extends Controller
                         $return['errmsg'] = "设置成功";
                     }
                 }
+            }else{//首次设置密码
+                $result = DB::table("cater_users")->whereId($user_id)->update(['currency_password' => Crypt::encrypt($currency_password)]);
+
+                if ($result) {
+                    $return['errcode'] = 1;
+                    $return['errmsg'] = "设置成功";
+                }
             }
         }else{//验证码
             if (\Cache::has('code')) {

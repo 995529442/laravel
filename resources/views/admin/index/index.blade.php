@@ -22,8 +22,7 @@
                     <p>
 
                         同比增长
-
-                        <span class="layuiadmin-span-color">{{round($day_money-$yesterday_money,2)}}元 <i class="layui-inline layui-icon layui-icon-dollar"></i></span>
+                        <span class="layuiadmin-span-color">{{round($day_money-$yesterday_money,2)}}元<i class="layui-inline layui-icon layui-icon-dollar"></i></span>
 
                     </p>
 
@@ -159,10 +158,10 @@
 
                             <div class="layuiadmin-card-list">
 
-                                <p class="layuiadmin-normal-font">日收入</p>
+                                <p class="layuiadmin-normal-font">日收入<span style="color:red;font-size:12px;">（注：绿色代表增加，红色代表减少）</span></p>
 
                                 <span>
-                                    @if($month_ratil > 0)
+                                    @if($day_ratil > 0)
                                         同上期增长
                                     @else
                                         同上期减少
@@ -184,7 +183,7 @@
                                 <p class="layuiadmin-normal-font">周收入</p>
 
                                 <span>
-                                    @if($month_ratil > 0)
+                                    @if($week_ratil > 0)
                                         同上期增长
                                     @else
                                         同上期减少

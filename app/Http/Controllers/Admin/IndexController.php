@@ -140,9 +140,6 @@ class IndexController extends Controller
             $waimai .= $waimai_count.",";
         }
 
-        $day_ratil = 0; //日收入增比
-        $week_ratil = 0; //周收入增比
-        $month_ratil = 0; //月收入增比
         return view('admin.index.index',[
             'day_money' => $day_money,
             'yesterday_money' => $yesterday_money,
