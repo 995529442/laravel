@@ -35,7 +35,7 @@ class CaterOrdersController extends Controller
             ->leftJoin("cater_users as us", 'or.user_id', 'us.id')
             ->where(["or.admin_id" => $admin_id, "or.isvalid" => true])
             ->select(['or.id', 'or.batchcode', 'or.phone', 'or.pay_type', 'or.status', 'or.type',
-                'or.real_pay', 'or.total_num', 'or.remark', 'or.create_time', 'us.weixin_name']);
+                'or.real_pay', 'or.total_num', 'or.remark', 'or.create_time', 'us.weixin_name','or.send_to']);
 
         if ($batchcode) {
             $order->where("or.batchcode", "like", "%$batchcode%");

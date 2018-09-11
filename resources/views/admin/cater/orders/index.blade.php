@@ -1,11 +1,18 @@
 @extends('admin.base')
 
 @section('content')
-    <div class="layui-card">
+
+    <style type="text/css">
+        {# 设置table每一行的height #}
+        .layui-table-cell {
+            height:auto;
+            overflow:visible;
+            text-overflow:inherit;
+            white-space:normal;
+        }
+     </style>
+        <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
-{{--            <div class="layui-btn-group ">
-                <button class="layui-btn layui-btn-sm" id="searchBtn">搜 索</button>
-            </div>--}}
             <div class="layui-form" >
                 <div class="layui-input-inline">
                     <label for="" class="layui-form-label">订单号：</label>
@@ -131,16 +138,17 @@
                     ,cols: [[ //表头
                         {field: 'id', title: 'ID', sort: true,width:50, align:'center'}
                         ,{field: 'batchcode', title: '订单号',width:180, align:'center',templet: '#operate1'}
-                        ,{field: 'weixin_name', title: '用户',width:160, align:'center'}
-                        ,{field: 'phone', title: '联系方式',width:160, align:'center'}
-                        ,{field: 'type', title: '订单类型',width:100, align:'center'}
-                        ,{field: 'pay_type', title: '支付状态',width:100, align:'center'}
-                        ,{field: 'status', title: '订单状态',width:100, align:'center'}
-                        ,{field: 'real_pay', title: '支付金额',width:100, align:'center'}
-                        ,{field: 'total_num', title: '数量',width:78, align:'center'}
+                        ,{field: 'weixin_name', title: '用户',width:140, align:'center'}
+                        ,{field: 'phone', title: '联系方式',width:120, align:'center'}
+                        ,{field: 'type', title: '订单类型',width:80, align:'center'}
+                        ,{field: 'pay_type', title: '支付状态',width:80, align:'center'}
+                        ,{field: 'status', title: '订单状态',width:80, align:'center'}
+                        ,{field: 'real_pay', title: '支付金额',width:80, align:'center'}
+                        ,{field: 'total_num', title: '数量',width:80, align:'center'}
+                        ,{field: 'send_to', title: '地址',width:160, align:'center'}
                         ,{field: 'create_time', title: '下单时间',width:180,align:'center'}
                         ,{field: 'remark', title: '留言',width:220, align:'center'}
-                        ,{field: '', title: '操作', align:'center',width:250,templet: '#operate'}
+                        ,{field: '', title: '操作', align:'center',templet: '#operate'}
                     ]],done:function(res, curr, count){  //res 接口返回的信息
                         $("[data-field = 'type']").children().each(function(){
                             if($(this).text() == '1'){

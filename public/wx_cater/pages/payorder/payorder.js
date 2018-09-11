@@ -295,7 +295,7 @@ Page({
                 remark: remark,
                 pay_type: pay_type,
                 currency_password: currency_password,
-                send_to: default_address.province + default_address.city + default_address.country + default_address.address
+                send_to: default_address.country + default_address.address + default_address.house_number
             },
             header: {
                 'content-type': 'application/json'
