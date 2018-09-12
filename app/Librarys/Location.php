@@ -24,7 +24,9 @@ class Location
      */
     public static function getLocation($admin_id, $from_latitude, $from_longitude)
     {
-        $shop_info = DB::table("cater_shop")->where(['admin_id' => $admin_id, 'isvalid' => true])->select(['longitude', 'latitude'])->first();
+        $shop_info = DB::table("cater_shop")->where(['admin_id' => $admin_id, 'isvalid' => true])
+            ->select(['longitude', 'latitude'])
+            ->first();
 
         $result = array(
             "errcode" => -1,

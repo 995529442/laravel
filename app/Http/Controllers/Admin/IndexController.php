@@ -12,7 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Librarys\Sms;
+use App\Jobs\TestSms;
 use DB;
 
 class IndexController extends Controller
@@ -464,13 +464,16 @@ class IndexController extends Controller
             } else {
                 $param = "123456,0.01,佚名,135XXXXXXXX";
             }
-            $result = Sms::sendSms(Auth::guard()->user()->id, $type, $param, $phone);
+            $this->dispatch((new TestSms(Auth::guard()->user()->id, $type, $param, $phone))->onQueue('TestSms'));
+
+            return redirect()->route('testSms', ['type'=>$type])->with(['status'=>'已尝试发送，结果请查看发送记录']);
+/*            $result = Sms::sendSms(Auth::guard()->user()->id, $type, $param, $phone);
 
             if ($result['errcode'] == 1) {
                 return redirect()->route('testSms', ['type'=>$type])->with(['status'=>'成功']);
             }else{
                 return redirect()->route('testSms', ['type'=>$type])->with(['status'=>$result['errmsg']]);
-            }
+            }*/
         }
         return view('admin.index.test_sms', ['type' => $type]);
     }
