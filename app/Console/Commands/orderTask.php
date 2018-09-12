@@ -49,7 +49,10 @@ class orderTask extends Command
      */
     public function cancel_order()
     {
-        DB::table("cater_orders")->where(['pay_type' => 0, 'status' => 0, 'isvalid' => true])->select(['id as order_id', 'create_time'])->orderBy("id", "desc")->chunk(100, function ($order_list) {
+        DB::table("cater_orders")->where(['pay_type' => 0, 'status' => 0, 'isvalid' => true])
+            ->select(['id as order_id', 'create_time'])
+            ->orderBy("id", "desc")
+            ->chunk(100, function ($order_list) {
             if (!empty($order_list)) {
                 foreach ($order_list as $v) {
                     $create_time = $v->create_time;
@@ -72,7 +75,10 @@ class orderTask extends Command
      */
     public function done_order()
     {
-        DB::table("cater_orders")->where(['pay_type' => 1, 'status' => 4, 'isvalid' => true])->select(['id as order_id', 'create_time'])->orderBy("id", "desc")->chunk(100, function ($order_list) {
+        DB::table("cater_orders")->where(['pay_type' => 1, 'status' => 4, 'isvalid' => true])
+            ->select(['id as order_id', 'create_time'])
+            ->orderBy("id", "desc")
+            ->chunk(100, function ($order_list) {
             if (!empty($order_list)) {
                 foreach ($order_list as $v) {
                     $create_time = $v->create_time;
