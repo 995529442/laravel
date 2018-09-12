@@ -288,7 +288,7 @@ Page({
         var is_out = e.currentTarget.dataset.is_out;
 
         if (that.data.pay_type == 1 && is_out == 0) { //订单过来,并且在配送范围内
-            wx.setStorageSync('address_id', address_id);
+            wx.setStorageSync('c', address_id);
 
             wx.navigateBack({
                 delta: 1

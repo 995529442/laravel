@@ -181,6 +181,7 @@ class getUserInfoController extends Controller
         $address = $request->input("address", "");
         $house_number = $request->input("house_number", "");
         $is_default = $request->input("is_default", 0);
+        $pay_type = $request->input("pay_type", 0);
 
         $return = array(
             "errcode" => -1,
@@ -202,6 +203,39 @@ class getUserInfoController extends Controller
             try {
                 DB::beginTransaction();
 
+                if($pay_type == 1){  //订单过来添加地址，判断是否在配送范围内
+                    //腾讯地图解析地址坐标
+                    $detail_address = $province . $city . $country . $address;
+                    $result = Location::declareAddress($detail_address);
+
+                    if ($result['errcode'] == 1) {
+                        $longitude = $result['data']['longitude'];
+                        $latitude = $result['data']['latitude'];
+
+                        //计算距离
+                        $location_info = Location::getLocation($admin_id, $latitude, $longitude);
+
+                        $delivery_km = DB::table("cater_shop")->where(['admin_id' => $admin_id, 'isvalid' => true])->value("delivery_km");
+
+                        if ($location_info['errcode'] == 1) { //成功
+                            $distance = (int)$location_info['data'][0]['distance'];
+
+                            if ($delivery_km * 1000 < $distance) {
+                                $return['errmsg'] = "不在配送范围";
+
+                                return json_encode($return);
+                            }
+                        } else {
+                            $return['errmsg'] = "不在配送范围";
+
+                            return json_encode($return);
+                        }
+                    } else {
+                        $return['errmsg'] = "不在配送范围";
+
+                        return json_encode($return);
+                    }
+                }
                 if ($is_default) { //设置默认地址先把其他重置
                     DB::table("cater_user_shipping")->where(['admin_id' => $admin_id, 'user_id' => $user_id, 'isvalid' => true])->update(['is_default' => 0]);
                 }

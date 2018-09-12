@@ -291,7 +291,8 @@ Page({
                 house_number: addressDetail,
                 user_name: user_name,
                 phone: phone,
-                is_default: that.data.is_checked
+                is_default: that.data.is_checked,
+                pay_type:that.data.pay_type
             },
             header: {
                 'content-type': 'application/json'
@@ -304,7 +305,6 @@ Page({
                         icon: 'success',
                         duration: 5000,
                         success: function () {
-                            console.log(that.data.pay_type)
                             if (that.data.pay_type == 1) {
                                 wx.setStorageSync('address_id', res.data.data);
 
@@ -320,7 +320,7 @@ Page({
                     })
                 } else {
                     wx.showToast({
-                        title: '您还没修改任何数据',
+                        title: res.data.errmsg,
                         icon: 'none',
                         duration: 3000,
                         success: function () {
