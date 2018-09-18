@@ -19,9 +19,6 @@ class CaterDeskController extends Controller
     //微餐饮-餐桌首页
     public function index(Request $request)
     {
-        var_dump( \Request::getRequestUri());
-        exit;
-        abort("401");
         return view("admin.cater.desk.index");
     }
 
