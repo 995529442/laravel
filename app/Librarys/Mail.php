@@ -10,6 +10,7 @@ namespace App\Librarys;
 date_default_timezone_set('PRC');
 
 use DB;
+use Mail as Mails;
 
 class Mail
 {
@@ -81,5 +82,21 @@ class Mail
 		}
 
 		return $result;
+	}
+
+    /**
+	 * 发送邮件(laravel内置邮件发送)
+	 * @param $to 接收邮箱
+	 * @param $title 主题
+	 * @param $content 发件内容
+	 * @return array
+	 */
+	public static function sendMail2($to, $title, $content)
+	{   
+        Mails::raw($content,function($message){
+           $message->from(env('MAIL_USERNAME', '995529442@qq.com'));
+           $message->subject("测试邮件");
+           $message->to("995529442@qq.com");
+        });
 	}
 }
