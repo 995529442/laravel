@@ -29,13 +29,13 @@ class CaterDeskController extends Controller
         $admin_id = $admins->id;
 
         $res = DB::table("cater_desk")->where(['admin_id' => $admin_id, 'isvalid' => true])->orderBy('id', 'desc')
-            ->paginate($request->get('limit',16))->toArray();
+            ->paginate($request->get('limit', 16))->toArray();
 
         $data = [
             'code' => 0,
-            'msg'   => '正在请求中...',
+            'msg' => '正在请求中...',
             'count' => $res['total'],
-            'data'  => $res['data']
+            'data' => $res['data']
         ];
         return response()->json($data);
     }
@@ -72,9 +72,9 @@ class CaterDeskController extends Controller
             $result = DB::table("cater_desk")->whereId($desk_id)->update(['name' => $name]);
 
             if ($result) {
-                return redirect(route('cater.desk.index'))->with(['status'=>'成功']);
+                return redirect(route('cater.desk.index'))->with(['status' => '成功']);
             } else {
-                return redirect(route('cater.desk.index'))->with(['status'=>'成功']);
+                return redirect(route('cater.desk.index'))->with(['status' => '成功']);
             }
         } else {
             $data = array(
@@ -85,9 +85,9 @@ class CaterDeskController extends Controller
             $result = DB::table("cater_desk")->insert($data);
 
             if ($result) {
-                return redirect(route('cater.desk.index'))->with(['status'=>'成功']);
+                return redirect(route('cater.desk.index'))->with(['status' => '成功']);
             } else {
-                return redirect(route('cater.desk.index'))->with(['status'=>'失败']);
+                return redirect(route('cater.desk.index'))->with(['status' => '失败']);
             }
         }
 
